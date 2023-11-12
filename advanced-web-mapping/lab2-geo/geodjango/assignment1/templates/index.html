@@ -35,6 +35,7 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
+         
             </ul>
           </div>
         </div>
@@ -52,36 +53,41 @@
             </div>
             <div class="col-12 col-md-6">
                
-             <article>
-               
-                    <h2 class=" text-secondary p-2" >Heat Map of Pine Martens in Ireland</h2>
-                    <p class="" >The pine marten, a native woodland mammal in Ireland, belongs to the mustelid family and is one of Ireland's most elusive and ancient inhabitants. Historically widespread across the island, habitat loss and hunting led to a significant decline in their numbers by the mid-20th century. However, due to legal protection since the 1970s, pine marten populations in Ireland have started to recover. Found primarily in well-wooded areas, they have a rich brown fur coat with a distinctive creamy-yellow throat bib. Their diet mainly consists of small mammals, birds, fruits, and insects. The presence of pine martens has also been linked to the decline of grey squirrels in Ireland, favoring the recovery of the native red squirrel population. Today, the pine marten is considered a symbol of the wild and untouched parts of the Irish landscape.</p>
-                    {% load static %}
-                    <!-- <img class="pine-img " src="{% static 'assignment1/pine-marten.jpg' %}" alt="pine marten "> -->
-                    
-            </article>
+                <article>
+                
+                        <h2 class=" text-secondary p-2" >Heat Map of Pine Martens in Ireland</h2>
+                        <p class=""style="font-size: 1.0rem;" >The pine marten, a native woodland mammal in Ireland, belongs to the mustelid family and is one of Ireland's most elusive and ancient inhabitants. Historically widespread across the island, habitat loss and hunting led to a significant decline in their numbers by the mid-20th century. However, due to legal protection since the 1970s, pine marten populations in Ireland have started to recover. Found primarily in well-wooded areas, they have a rich brown fur coat with a distinctive creamy-yellow throat bib. Their diet mainly consists of small mammals, birds, fruits, and insects. The presence of pine martens has also been linked to the decline of grey squirrels in Ireland, favoring the recovery of the native red squirrel population. Today, the pine marten is considered a symbol of the wild and untouched parts of the Irish landscape.</p>
+                        {% load static %}
+            
+                        
+                </article>
 
              
             <div class="row ">
                 <div class="col-12 col-md-6 pt-3 d-flex flex-column">
         
                   
-                    <div class="flex-grow-1">
+                    <!-- <div class="flex-grow-1">
                         <h4 class="text-secondary">Share Your Pine Marten Observations</h4>
                         <p class="pt-1" style="font-size: 1.25rem;">Have you encountered Pine Martens in the wild or have interesting information about them? We'd love to hear about your experiences. Use the form below to document your sightings of the species and contribute to our research.</p>   
                         <p class="pt-1 " style="font-size: 1.25rem;">
                             By sharing, you're aiding our research and enhancing knowledge of Pine Martens' natural habitat.
-                    </div>
+                    </div> -->
                     
         
-                    <div class="">
-                        <button class="btn btn-outline-primary" style="font-size: 1.25rem;" onclick="get_user_location()">View your Location</button>
+                    <div class="d-flex flex-column justify-content-end" style="height: 100%;">
+                        <h4 class="text-secondary ">
+                           Share your Pine Martens Observations
+                        </h4>
+                        
+                       <button class="btn btn-outline-primary mt-auto" style="font-size: 1.25rem;" onclick="get_user_location()">View your Location</button>
                     </div>
+                    
                  
                     
                     </div>
                         <div class="col-12 col-md-6 pt-2 ">
-                                <img class="pine-img" src="{% static 'assignment1/pine-marten.jpg' %}" alt="pine marten">
+                                <img class="pine-img img-fluid" src="{% static 'assignment1/pine-marten.jpg' %}" alt="pine marten">
                         </div>
                         </div>
                     </div>
@@ -90,7 +96,7 @@
         <div class="row mt-3 pt-1"> 
             <div class="col-12 col-md-6">
                 <h3 class="text-secondary">Add Your Own Findings</h3>
-                <form method="post" class="align-center">
+                <form method="post" class="align-center" action="{% url 'pine_martens_list' %}">
                     {% csrf_token %}
                     {% load widget_tweaks %}
                     <div class="mb-3">
@@ -123,7 +129,7 @@
     </div>
 
 
-
+  
     
     <script type="text/javascript">
         var map = L.map('map').setView([53.349805, -6.26031], 8);  // set to dublin

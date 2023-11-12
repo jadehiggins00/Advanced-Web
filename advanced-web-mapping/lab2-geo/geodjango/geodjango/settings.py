@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import socket
+
+
 os.environ['PROJ_LIB'] = 'b:\\anaconda\\envs\\milo_is_gay\\Library\\share\\proj'
 os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 
@@ -23,16 +26,26 @@ os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
+
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ac$l*cpptka-n52r2wem57--06_4&($$98@*d%cp=*&u1+5&qi'
+
+with open(f'{BASE_DIR}/secret_key.txt') as f:
+   SECRET_KEY = f.read().strip()
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
+
 
 
 # Application definition
@@ -46,9 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'assignment1',
-    'leaflet',
     'widget_tweaks',
-    'crispy_forms',
+ 
 ]
 CRISPY_TEMPLATE_PACK= 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
@@ -69,7 +81,7 @@ ROOT_URLCONF = 'geodjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/ "templates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,10 +106,32 @@ DATABASES = {
         'NAME': 'gis',             # Make sure this is the correct database name you have set up
         'USER': 'docker',
         'PASSWORD': 'docker',
-        'HOST': 'localhost',    # Using the network alias
-        'PORT': '25432',
+        'HOST': 'wmap_postgis',    # localhost  my-fyp wmap_postgis
+        'PORT': '5432',
     }
 }
+
+DATABASES["default"]["PORT"] = 5432
+
+
+
+CSRF_TRUSTED_ORIGINS = ['https://*.blah.today','https://*.40.113.49.212']
+
+
+# Set DEPLOY_SECURE based on environment variable, defaulting to False if not set
+DEPLOY_SECURE = os.environ.get('DEPLOY_SECURE', 'False').lower() == 'False'
+
+if DEPLOY_SECURE:
+    DEBUG = False
+    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    DEBUG = False
+    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    ALLOWED_HOSTS = ['*', ]
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
 
 
 # Password validation

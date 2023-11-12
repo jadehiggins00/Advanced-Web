@@ -29,6 +29,19 @@ WORKDIR /usr/src/app
 #     shared-mime-info && \
 #     apt-get clean && \
 #     rm -rf /var/lib/apt/lists/*
+
+
+RUN apt-get update && \
+    apt-get install -y \
+    build-essential \
+    libcairo2 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libgdk-pixbuf2.0-0 \
+    libffi-dev \
+    shared-mime-info && \   
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 # You should have already exported your conda environment to
 #an "ENV.yml" file.
 # Now copy this to the image and install everything in it.
@@ -48,6 +61,7 @@ RUN conda install uwsgi
 # Copy everything in your Django project to the image.
 COPY . /usr/src/app
 # Make sure that static files are up to date and available
+RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --no-input
 # Expose port 8001 on the image. We'll map a localhost port to
 #this later.
