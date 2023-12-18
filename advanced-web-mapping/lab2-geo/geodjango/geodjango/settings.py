@@ -20,7 +20,7 @@ os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 
 
 
-
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'corsheaders',
     'assignment1',
     'widget_tweaks',
  
@@ -68,6 +69,7 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -106,12 +108,12 @@ DATABASES = {
         'NAME': 'gis',             # Make sure this is the correct database name you have set up
         'USER': 'docker',
         'PASSWORD': 'docker',
-        'HOST': 'wmap_postgis',    # localhost  my-fyp wmap_postgis
-        'PORT': '5432',
+        'HOST': 'localhost',    # localhost  my-fyp wmap_postgis
+        'PORT': '25432',
     }
 }
 
-DATABASES["default"]["PORT"] = 5432
+DATABASES["default"]["PORT"] = 25432
 
 
 
@@ -119,19 +121,19 @@ CSRF_TRUSTED_ORIGINS = ['https://*.blah.today','https://*.40.113.49.212']
 
 
 # Set DEPLOY_SECURE based on environment variable, defaulting to False if not set
-DEPLOY_SECURE = os.environ.get('DEPLOY_SECURE', 'False').lower() == 'False'
+DEPLOY_SECURE = os.environ.get('DEPLOY_SECURE', 'False').lower() == 'True'
 
 if DEPLOY_SECURE:
-    DEBUG = False
-    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    DEBUG = True
+    TEMPLATES[0]["OPTIONS"]["debug"] = True
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 else:
-    DEBUG = False
-    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    DEBUG = True
+    TEMPLATES[0]["OPTIONS"]["debug"] = True
     ALLOWED_HOSTS = ['*', ]
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 
 # Password validation
