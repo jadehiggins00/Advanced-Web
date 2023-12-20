@@ -20,7 +20,8 @@ os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,7 +64,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'assignment1',
     'widget_tweaks',
-    'leaflet'
+    'leaflet',
  
 ]
 
@@ -190,13 +191,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/dist_dev'),  # or 'dist_prod' for production
-]
 
 
 PWA_APP_DEBUG_MODE = False
