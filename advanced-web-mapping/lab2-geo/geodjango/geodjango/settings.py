@@ -58,11 +58,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'pwa',
+    'rest_framework',
     'corsheaders',
     'assignment1',
     'widget_tweaks',
+    'leaflet'
  
 ]
+
+LEAFLET_CONFIG = {
+    # "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
+    "DEFAULT_CENTER": (53.3498053, -6.2603097),  # Coordinates for Dublin, Ireland
+    "DEFAULT_ZOOM": 16,
+    "MIN_ZOOM": 3,
+    "MAX_ZOOM": 20,
+    "DEFAULT_PRECISION": 6,
+    "SCALE": "both",
+    "ATTRIBUTION_PREFIX": "powered by Anois is Aris",
+}
+
 CRISPY_TEMPLATE_PACK= 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
 
@@ -174,6 +189,61 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/dist_dev'),  # or 'dist_prod' for production
+]
+
+
+PWA_APP_DEBUG_MODE = False
+
+PWA_APP_NAME = 'bird watcher'
+PWA_APP_DESCRIPTION = "this app allows users to locate specific bird watching hides and add their own locations"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/pine-marten.jpg',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/pine-marten.jpg',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/pine-marten.jpg',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'Shortcut',
+        'url': '/target',
+        'description': 'Shortcut to a page in my application'
+    }
+]
+PWA_APP_SCREENSHOTS = [
+    {
+      'src': '/static/pine-marten.jpg',
+      'sizes': '750x1334',
+      "type": "image/png"
+    }
+]
 
 # this can redirect the user to a new page 
 LOGIN_REDIRECT_URL = "/assignment1/pine-martens"

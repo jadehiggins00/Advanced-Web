@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .models import PineMartens
 from .forms import PineMartenForm
 from django.contrib import messages
 from django.urls import reverse
@@ -9,6 +8,48 @@ from django.http import JsonResponse
 from .encoders import GeoJSONEncoder
 import requests
 from urllib.parse import quote_plus
+from rest_framework import generics
+from .models import BirdHides, PineMartens
+from assignment1.serializers import BirdHidesSerializer
+ 
+from django.contrib.gis.geos import Point
+from geopy.geocoders import Nominatim
+ 
+geolocator = Nominatim(user_agent="location")
+
+
+class ListCreateGenericViews(generics.ListCreateAPIView):
+    queryset = BirdHides.objects.all()
+    serializer_class = BirdHidesSerializer
+ 
+    def perform_create(self, serializer):
+        address = serializer.initial_data["address"]
+        g = geolocator.geocode(address)
+        if g is not None:
+            lat = g.latitude
+            lng = g.longitude
+            pnt = Point(lng, lat)
+            print(pnt)
+            serializer.save(location=pnt)
+        else:
+            # Handle the case where the address could not be geocoded
+            print(f"Address {address} could not be geocoded.")
+ 
+ 
+class BirdHidesUpdateRetreiveView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BirdHides.objects.all()
+    serializer_class = BirdHidesSerializer
+ 
+    def perform_update(self, serializer):
+        address = serializer.initial_data["address"]
+        g = geolocator.geocode(address)
+        lat = g.latitude
+        lng = g.longitude
+        pnt = Point(lng, lat)
+        print(pnt)
+        serializer.save(location=pnt)
+
+
 
 def fetch_bird_hides_in_ireland():
     query = """
