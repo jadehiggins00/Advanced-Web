@@ -10,10 +10,10 @@ from . import views
 # ]
 
 urlpatterns = [
-    path('signup/', views.signup, name='signup'),
-    path('login/', include('django.contrib.auth.urls')),  
+    # path('signup/', views.signup, name='signup'),
+    # path('login/', include('django.contrib.auth.urls')),  
 
-    path('pine-martens/', views.pine_martens_view, name='pine_martens_list'),
+    # path('pine-martens/', views.pine_martens_view, name='pine_martens_list'),
     path("birdhides", ListCreateGenericViews.as_view()),
     path(
         "birdhides/<str:pk>",

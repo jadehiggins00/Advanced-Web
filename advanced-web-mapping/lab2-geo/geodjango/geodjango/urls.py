@@ -24,10 +24,10 @@ from assignment1.views import redirect_to_login
 
 
 urlpatterns = [
-    path('', redirect_to_login, name='redirect-to-login'),
+    # path('', redirect_to_login, name='redirect-to-login'),
     path('admin/', admin.site.urls),
-    path("assignment1/", include("django.contrib.auth.urls")), 
-    path('assignment1/', include('assignment1.urls')),
+    # path("assignment1/", include("django.contrib.auth.urls")), 
+    # path('assignment1/', include('assignment1.urls')),
     path('', include('assignment1.urls')),
     path('', include('pwa.urls')),
     path("api/v1/", include('assignment1.urls')),

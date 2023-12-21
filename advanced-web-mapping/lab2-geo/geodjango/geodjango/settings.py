@@ -20,7 +20,7 @@ os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 
 
 
-CORS_ALLOW_ALL_ORIGINS = False
+# CORS_ALLOW_ALL_ORIGINS = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,11 +42,11 @@ with open(f'{BASE_DIR}/secret_key.txt') as f:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -58,9 +58,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'pwa',
     'rest_framework',
-    'corsheaders',
+    # 'corsheaders',
     'assignment1',
     'widget_tweaks',
  
@@ -71,7 +70,7 @@ CRISPY_FAIL_SILENTLY = not DEBUG
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -211,7 +210,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # this can redirect the user to a new page 
-LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
+#LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
