@@ -29,7 +29,7 @@ urlpatterns = [
     # path('assignment1/pine-martens/', pine_martens_view, name='pine-martens'),
     # path('assignment1/bird-watch/', bird_hide_view, name='bird-watch'),
     path('assignment1/signup/', signup, name='signup'),
-     path("api/v1/", include('assignment1.urls')),
+    # path("api/v1/", include('assignment1.urls')),
 
 
     # ... other URL patterns
