@@ -43,18 +43,47 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
+    'pwa',
     'bird_hides',
-    'frontend.apps.FrontendConfig'
+    'frontend.apps.FrontendConfig',
+    'rest_framework',
+    'leaflet'
 ]
+
+LEAFLET_CONFIG = {
+    # "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
+    "DEFAULT_CENTER": (13.3888599, 52.5170365), #set your corordinate to reference to a solid place (the above coordinates places you somewhere on the sea in the middle east )
+    "DEFAULT_ZOOM": 16,
+    "MIN_ZOOM": 3,
+    "MAX_ZOOM": 20,
+    "DEFAULT_PRECISION": 6,
+    "SCALE": "both",
+    "ATTRIBUTION_PREFIX": "powered by <Your corporate name>",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = [
+
+    'http://localhost:80',
+
+    'http://localhost:8000',
+
+    'http://127.0.0.1:8000'
+
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -146,6 +175,58 @@ LOGGING = {
         },
     },
 }
+
+PWA_APP_DEBUG_MODE = False
+
+PWA_APP_NAME = 'Bird Hides'
+PWA_APP_DESCRIPTION = "add your own local bird hide"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/bird3.png',
+        'sizes': '160x160',
+     
+    },
+     {
+        'src': '/static/images/bird3.png',  # add a 512x512 icon
+        'sizes': '512x512',
+     
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/bird3.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/bird3.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'Shortcut',
+        'url': '/target',
+        'description': 'Shortcut to a page in my application'
+    }
+]
+PWA_APP_SCREENSHOTS = [
+    {
+      'src': '/static/images/bird3.png',
+      'sizes': '750x1334',
+      "type": "image/png"
+    }
+]
 
 
 # Internationalization
