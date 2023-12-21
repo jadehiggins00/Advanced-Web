@@ -20,7 +20,7 @@ os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,8 +61,20 @@ INSTALLED_APPS = [
     'corsheaders',
     'assignment1',
     'widget_tweaks',
+    'rest_framework'
  
 ]
+
+LEAFLET_CONFIG = {
+    # "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
+    "DEFAULT_CENTER": (13.3888599, 52.5170365), #set your corordinate to reference to a solid place (the above coordinates places you somewhere on the sea in the middle east )
+    "DEFAULT_ZOOM": 16,
+    "MIN_ZOOM": 3,
+    "MAX_ZOOM": 20,
+    "DEFAULT_PRECISION": 6,
+    "SCALE": "both",
+    "ATTRIBUTION_PREFIX": "powered by <Your corporate name>",
+}
 CRISPY_TEMPLATE_PACK= 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
 
@@ -177,6 +189,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # this can redirect the user to a new page 
 LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
+LOGIN_URL = '/assignment1/login/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
