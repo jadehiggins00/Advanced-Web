@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+from .views import BirdHidesUpdateRetreiveView, ListCreateGenericViews
 from . import views
 
  
@@ -13,4 +14,9 @@ urlpatterns = [
     path('login/', include('django.contrib.auth.urls')),  
 
     path('pine-martens/', views.pine_martens_view, name='pine_martens_list'),
+    path("birdhides", ListCreateGenericViews.as_view()),
+    path(
+        "birdhides/<str:pk>",
+        BirdHidesUpdateRetreiveView.as_view(),
+    ),
 ]

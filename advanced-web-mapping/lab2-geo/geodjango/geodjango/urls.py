@@ -28,5 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("assignment1/", include("django.contrib.auth.urls")), 
     path('assignment1/', include('assignment1.urls')),
+    path('', include('assignment1.urls')),
+    path('', include('pwa.urls')),
+    path("api/v1/", include('assignment1.urls')),
 
 ]

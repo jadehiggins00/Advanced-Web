@@ -6,8 +6,50 @@ from django.urls import reverse
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm
 import logging
+from rest_framework import generics
+from .models import BirdHides, PineMartens
+from assignment1.serializers import BirdHidesSerializer
+
+from django.contrib.gis.geos import Point
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent="location")
+
 
 logger = logging.getLogger(__name__)
+
+
+class ListCreateGenericViews(generics.ListCreateAPIView):
+    queryset = BirdHides.objects.all()
+    serializer_class = BirdHidesSerializer
+
+    def perform_create(self, serializer):
+        address = serializer.initial_data["address"]
+        g = geolocator.geocode(address)
+        if g is not None:
+            lat = g.latitude
+            lng = g.longitude
+            pnt = Point(lng, lat)
+            print(pnt)
+            serializer.save(location=pnt)
+        else:
+            # Handle the case where the address could not be geocoded
+            print(f"Address {address} could not be geocoded.")
+
+
+class BirdHidesUpdateRetreiveView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BirdHides.objects.all()
+    serializer_class = BirdHidesSerializer
+
+    def perform_update(self, serializer):
+        address = serializer.initial_data["address"]
+        g = geolocator.geocode(address)
+        lat = g.latitude
+        lng = g.longitude
+        pnt = Point(lng, lat)
+        print(pnt)
+        serializer.save(location=pnt)
+
 
 # when the server first runs, redirect to the login page 
 def redirect_to_login(request):
