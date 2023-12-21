@@ -5,9 +5,13 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 # when the server first runs, redirect to the login page 
 def redirect_to_login(request):
+    logger.debug("Request received")
     return redirect('/assignment1/login/')
 
 def pine_martens_view(request):

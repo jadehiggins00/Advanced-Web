@@ -44,9 +44,9 @@ with open(f'{BASE_DIR}/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
+#ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
 
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -154,6 +154,39 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'C:/Users/Jade Higgins/OneDrive - Technological University Dublin/4th-year-2023/awm-github/Advanced-Web/advanced-web-mapping/lab2-geo/geodjango/geodjango/logs/django.log',
+            'formatter': 'verbose',
+        }
+        # 'console': {
+        #     'class': 'logging.StreamHandler',
+        #     'formatter': 'simple',
+        # },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],  # Removed 'console' from this list
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 
 
