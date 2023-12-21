@@ -6,9 +6,9 @@ from .views import BirdHidesUpdateRetreiveView, ListCreateGenericViews
 
 
 urlpatterns = [
-     path('', RedirectView.as_view(url=reverse_lazy('login')), name='root'),
-    path('signup/', views.signup, name='signup'),
-    path('login/', include('django.contrib.auth.urls')),  
+    # path('', RedirectView.as_view(url=reverse_lazy('login')), name='root'),
+  #  path('signup/', views.signup, name='signup'),
+  #  path('login/', include('django.contrib.auth.urls')),  
     # path('pine-martens/', views.pine_martens_view, name='pine_martens_list'),
     path("birdhides", ListCreateGenericViews.as_view()),
     path(

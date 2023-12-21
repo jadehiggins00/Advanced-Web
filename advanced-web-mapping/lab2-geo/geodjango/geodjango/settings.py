@@ -44,9 +44,9 @@ with open(f'{BASE_DIR}/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
+#ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
 
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -188,8 +188,8 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # this can redirect the user to a new page 
-LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
-LOGIN_URL = '/assignment1/login/'
+# LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
+# LOGIN_URL = '/assignment1/login/'
 
 
 # Default primary key field type
