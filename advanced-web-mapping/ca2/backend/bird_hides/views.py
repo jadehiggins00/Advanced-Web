@@ -45,27 +45,40 @@ def add_bird_location(request):
             return JsonResponse({'error': str(e)}, status=400)
 
 
+# views.py
+from django.http import JsonResponse
 
-class BirdSpotsViewSet(viewsets.ModelViewSet):
-    queryset = BirdSpots.objects.all()
-    serializer_class = BirdSpotsSerializer
+def get_all_locations(request):
+    if request.method == 'GET':
+        try:
+            locations = BirdLocation.objects.all()
+            data = list(locations.values('latitude', 'longitude', 'name', 'description'))
+            return JsonResponse({'locations': data}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+
+
+# class BirdSpotsViewSet(viewsets.ModelViewSet):
+#     queryset = BirdSpots.objects.all()
+#     serializer_class = BirdSpotsSerializer
 
   
 
-    def perform_create(self, serializer):
-        address = serializer.initial_data["address"]
+#     def perform_create(self, serializer):
+#         address = serializer.initial_data["address"]
 
-        try:
-            g = geolocator.geocode(address)
-            if g is not None:
-                lat = g.latitude
-                lng = g.longitude
-                pnt = Point(lng, lat)
-                serializer.save(location=pnt)
-            else:
-                logger.info(f"Address {address} could not be geocoded.")
-        except Exception as e:
-            logger.error(f"Geocoding error: {e}")
+#         try:
+#             g = geolocator.geocode(address)
+#             if g is not None:
+#                 lat = g.latitude
+#                 lng = g.longitude
+#                 pnt = Point(lng, lat)
+#                 serializer.save(location=pnt)
+#             else:
+#                 logger.info(f"Address {address} could not be geocoded.")
+#         except Exception as e:
+#             logger.error(f"Geocoding error: {e}")
 
 
 # class BirdHideViewSet(viewsets.ModelViewSet):

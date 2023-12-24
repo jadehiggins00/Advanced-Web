@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { createRoot } from 'react-dom/client';
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
-import L from 'leaflet'; // Import if custom icons or other Leaflet functionalities are needed
+import L from 'leaflet';
 
 export default class BirdHides extends Component {
   constructor(props) {
     super(props);
     this.state = {
       geojsonData: null, // State to store converted GeoJSON data
+      locations: [],     // State to store location data from backend
     };
-    this.mapRef = React.createRef(); // Ref for accessing the map instance
+    this.mapRef = React.createRef();
   }
 
   componentDidMount() {
+    // Fetch GeoJSON data
     fetch('/api/birdhides_ireland')
       .then(response => {
         if (!response.ok) {
@@ -28,49 +30,59 @@ export default class BirdHides extends Component {
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
       });
+
+   
+      // fetch('/api/get_all_locations')
+      // .then(response => response.json())
+      // .then(data => {
+      //   console.log(data); // Corrected position of console.log
+      //   this.setState({ locations: data.locations });
+      // })
+      // .catch(error => console.error('Error fetching locations:', error));
   }
 
   onEachFeature = (feature, layer) => {
-    // Define interactions for each feature (polygon) here
-    // Example: setting a popup on click
     if (feature.properties && feature.properties.name) {
       layer.bindPopup(feature.properties.name);
     }
   };
 
   render() {
-    const { geojsonData } = this.state;
+    const { geojsonData, locations } = this.state;
 
     return (
-      <div >
-       
+      <div>
         <MapContainer
           center={[53.4129, -8.2439]}
           zoom={6}
-        //   style={{ height: '400px', width: '100%' }}
           whenCreated={mapInstance => { this.mapRef.current = mapInstance; }}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution='&copy; OpenStreetMap contributors'
           />
           {geojsonData && (
             <GeoJSON
               data={geojsonData}
               onEachFeature={this.onEachFeature}
-              // pointToLayer and style functions can be added here if needed
             />
           )}
+          {locations.map((location, index) => (
+            <Marker key={index} position={[location.latitude, location.longitude]}>
+              <Popup>
+                {location.name ? <strong>{location.name}</strong> : 'Unknown Location'}
+                <br />
+                {location.description}
+              </Popup>
+            </Marker>
+          ))}
         </MapContainer>
-
-  
-
       </div>
-      
     );
   }
 }
 
+// Uncomment and use the following lines if you are mounting this component directly in your HTML
 // const birdhidesDiv = document.getElementById('birdhides');
 // if (birdhidesDiv) {
 //   const root = createRoot(birdhidesDiv);
