@@ -4,8 +4,6 @@ import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
 import L from 'leaflet'; // Import if custom icons or other Leaflet functionalities are needed
 
-
-
 export default class BirdHides extends Component {
   constructor(props) {
     super(props);

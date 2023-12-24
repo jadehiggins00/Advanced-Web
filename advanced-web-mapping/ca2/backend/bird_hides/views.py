@@ -1,5 +1,10 @@
 from django.shortcuts import render
 import requests
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')  # Adjust according to your project structure
+django.setup()
 from urllib.parse import quote_plus
 from rest_framework import generics
 from .models import BirdHides
@@ -10,6 +15,8 @@ from geopy.geocoders import Nominatim
 from django.http import JsonResponse
 import requests
 
+
+
 geolocator = Nominatim(user_agent="location")
 
 
@@ -19,15 +26,20 @@ class BirdHideViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         address = serializer.initial_data["address"]
-        g = geolocator.geocode(address)
-        if g is not None:
-            lat = g.latitude
-            lng = g.longitude
-            pnt = Point(lng, lat)
-            serializer.save(location=pnt)
-        else:
-            # Handle the case where the address could not be geocoded
-            print(f"Address {address} could not be geocoded.")
+        try:
+            g = geolocator.geocode(address)
+            if g is not None:
+                lat = g.latitude
+                lng = g.longitude
+                pnt = Point(lng, lat)
+                serializer.save(location=pnt)
+            else:
+                # Handle the case where the address could not be geocoded
+                print(f"Address {address} could not be geocoded.")
+        except Exception as e:
+            print(f"Geocoding error: {e}")
+
+
 
 
 class BirdHidesUpdateRetreiveView(generics.RetrieveUpdateDestroyAPIView):
@@ -36,13 +48,18 @@ class BirdHidesUpdateRetreiveView(generics.RetrieveUpdateDestroyAPIView):
 
     def perform_update(self, serializer):
         address = serializer.initial_data["address"]
-        g = geolocator.geocode(address)
-        lat = g.latitude
-        lng = g.longitude
-        pnt = Point(lng, lat)
-        print(pnt)
-        serializer.save(location=pnt)
-
+        try: 
+            g = geolocator.geocode(address)
+            if g is not None:
+                lat = g.latitude
+                lng = g.longitude
+                pnt = Point(lng, lat)
+                print(pnt)
+                serializer.save(location=pnt)
+            else:
+                print(f"Address {address} could not be geocoded.")
+        except Exception as e:
+            print(f"Geocoding error: {e}")
 
 def fetch_bird_hides_in_ireland(request):
     query = """
