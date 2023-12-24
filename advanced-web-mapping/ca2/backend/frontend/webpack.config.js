@@ -19,6 +19,17 @@ module.exports = {
         exclude: /node_modules/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000, // Adjust file size limit as needed
+            },
+          },
+        ],
+      },
     ],
   },
   optimization: {

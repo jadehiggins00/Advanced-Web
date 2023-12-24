@@ -7,7 +7,7 @@ router.register(r'birdhides', BirdHideViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-   path("birds", BirdHideViewSet.as_view({'get': 'list'})),
+   path("birdhides", BirdHideViewSet.as_view({'get': 'list'})),
        path('birdhides_ireland', fetch_bird_hides_in_ireland, name='birdhides_ireland'),
 
 ]

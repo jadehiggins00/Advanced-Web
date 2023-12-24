@@ -3,66 +3,65 @@ import { createRoot } from 'react-dom/client';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
 import L from 'leaflet'; // Import if custom icons or other Leaflet functionalities are needed
+import BirdHides from './BirdHides';
+import Header from './Header';
+import SideNav from './SideNav';
+import '../../static/css/App.css';
+
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      geojsonData: null, // State to store converted GeoJSON data
-    };
-    this.mapRef = React.createRef(); // Ref for accessing the map instance
-  }
+ 
 
-  componentDidMount() {
-    fetch('/api/birdhides_ireland')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(osmData => {
-        const geojsonData = osmtogeojson(osmData);
-        this.setState({ geojsonData });
-      })
-      .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
-  }
-
-  onEachFeature = (feature, layer) => {
-    // Define interactions for each feature (polygon) here
-    // Example: setting a popup on click
-    if (feature.properties && feature.properties.name) {
-      layer.bindPopup(feature.properties.name);
-    }
-  };
 
   render() {
-    const { geojsonData } = this.state;
+
 
     return (
-      <div>
-        <h1>Bird Hides in Ireland</h1>
-        <MapContainer
-          center={[53.4129, -8.2439]}
-          zoom={6}
-          style={{ height: '400px', width: '100%' }}
-          whenCreated={mapInstance => { this.mapRef.current = mapInstance; }}
-        >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
-          {geojsonData && (
-            <GeoJSON
-              data={geojsonData}
-              onEachFeature={this.onEachFeature}
-              // pointToLayer and style functions can be added here if needed
-            />
-          )}
-        </MapContainer>
+      <div className="container-fluid ">
+      <Header/>
+      <div className="row">
+          <div className="sidenav col-sm-auto  sticky-top">
+              <SideNav/>
+
+          </div>
+          <div className="col-sm p-3 min-vh-100">
+      
+
+            <div className="row">
+                <div className="col-7" >
+                <BirdHides/>
+                
+                </div>
+                <div className="col-5  " >
+                {/* <RasterMap/> */}
+                {/* <RasterMap/> */}
+                {/* <h1 className="blue-main-text">
+                Natterjack Toad Predictions</h1>
+                <p>blah blah blah blah blah</p>
+                <p>blah blah blah blah blah</p>
+                <h3 className="h3-main-text">
+               47 known observations</h3> */}
+                <div className="d-flex  justify-content-end ">
+             
+                </div>
+            
+                </div>
+            </div>
+            <div className="row pt-5">
+                <div className="col-6 pt-2" >
+
+                </div>
+                <div className="col-6 pt-4" >
+         
+                </div>
+            </div>
+    
+          
+          </div>
+      
       </div>
+    </div>
+      
     );
   }
 }

@@ -204,29 +204,38 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
- /* Sarpanch Medium
+ /* Sarpanch Medium */
 @font-face {
   font-family: 'Sarpanch';
-  src: url('/src/assets/fonts/Sarpanch-Medium.ttf') format('truetype'); 
+  src: url('/static/fonts/Sarpanch-Medium.ttf') format('truetype'); 
   font-style: normal;
   font-weight: 500;
 }
 
 /*  Sarpanch Bold */
-/* @font-face {
+@font-face {
   font-family: 'Sarpanch';
-  src: url('/src/assets/fonts/Sarpanch-Bold.ttf') format('truetype'); 
+  src: url('/static/fonts/Sarpanch-Bold.ttf') format('truetype'); 
   font-style: normal;
   font-weight: 700;
-} */
+}
 
 /* header text */
 
-/* .blue-main-text{
+.blue-main-text{
   font-family: 'Sarpanch';
   font-style: normal;
   font-weight: 700;
   color: #111A75;
+}
+
+.white-main-text{
+  font-family: 'Sarpanch';
+  font-style: normal;
+  font-weight: 700;
+  color: white;
+  padding-top: 2%;
+  padding-left: 1%;
 }
 
 .h3-main-text{
@@ -243,6 +252,7 @@ body {
   color: #41670F;
 }
 
+
 /* slider text */
 .slider-label{
   font-family: 'Sarpanch';
@@ -254,7 +264,12 @@ body {
 /* nav header */
 .container-fluid .nav-header{
   height: 90px;
-  
+  background: linear-gradient(90deg, #0C156B 0%, #3642BD 70.13%, #3B48C8 78.80%, rgba(17, 26, 117, 0.90) 100%);
+  box-shadow: 2px 30px 50px 0px #F3F4FE;
+}
+
+.nav-header{
+  height: 90px;
   background: linear-gradient(90deg, #0C156B 0%, #3642BD 70.13%, #3B48C8 78.80%, rgba(17, 26, 117, 0.90) 100%);
   box-shadow: 2px 30px 50px 0px #F3F4FE;
 }
@@ -263,6 +278,9 @@ body {
   height: 90px;
 }
 
+.test{
+  background-color: red;
+}
 
 /* tab buttons */
 .btn.tab-button {
@@ -12301,7 +12319,7 @@ textarea.form-control-lg {
 @import '~leaflet/dist/leaflet.css';
 
 .leaflet-container {
-  width: 100%;
+  width: 90%;
   height: 60vh;
  
 }
