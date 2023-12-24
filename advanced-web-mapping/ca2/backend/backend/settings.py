@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    # 'rest_framework',
     'corsheaders',
     'pwa',
     'bird_hides',
@@ -170,6 +170,11 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],  # Removed 'console' from this list
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'bird_hides': {
+            'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
         },
