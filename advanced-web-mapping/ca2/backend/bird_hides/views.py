@@ -81,18 +81,18 @@ def get_all_locations(request):
 #             logger.error(f"Geocoding error: {e}")
 
 
-# class BirdHideViewSet(viewsets.ModelViewSet):
-#     queryset = BirdSpots.objects.all()
-#     serializer_class = BirdSpotsSerializer
+class BirdHide(viewsets.ModelViewSet):
+    queryset = BirdSpots.objects.all()
+    serializer_class = BirdSpotsSerializer
 
-#     def perform_create(self, serializer):
-#         lat = self.request.data.get('latitude')
-#         lng = self.request.data.get('longitude')
-#         if lat and lng:
-#             location = Point(float(lng), float(lat))
-#             serializer.save(location=location)
-#         else:
-#             serializer.save()
+    def perform_create(self, serializer):
+        lat = self.request.data.get('latitude')
+        lng = self.request.data.get('longitude')
+        if lat and lng:
+            location = Point(float(lng), float(lat))
+            serializer.save(location=location)
+        else:
+            serializer.save()
 
 # class BirdHidesUpdateRetreiveView(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = BirdHides.objects.all()

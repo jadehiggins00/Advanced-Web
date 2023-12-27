@@ -32,13 +32,13 @@ export default class BirdHides extends Component {
       });
 
    
-      // fetch('/api/get_all_locations')
-      // .then(response => response.json())
-      // .then(data => {
-      //   console.log(data); // Corrected position of console.log
-      //   this.setState({ locations: data.locations });
-      // })
-      // .catch(error => console.error('Error fetching locations:', error));
+      fetch('/api/get_all_locations')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // Corrected position of console.log
+        this.setState({ locations: data.locations });
+      })
+      .catch(error => console.error('Error fetching locations:', error));
   }
 
   onEachFeature = (feature, layer) => {
