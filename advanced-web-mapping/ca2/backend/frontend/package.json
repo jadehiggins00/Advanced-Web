@@ -25,6 +25,7 @@
     "leaflet": "^1.9.4",
     "osmtogeojson": "^3.0.0-beta.5",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "yarn": "^1.22.21"
   }
 }
