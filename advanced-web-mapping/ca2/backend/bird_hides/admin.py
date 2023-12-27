@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from leaflet.admin import LeafletGeoAdmin
+# from leaflet.admin import LeafletGeoAdmin
 
-from .models import BirdHides
+# from .models import BirdHides
 
  
 
-@admin.register(BirdHides)
+# @admin.register(BirdHides)
 
-class BirdHidesAdmin(LeafletGeoAdmin):
+# class BirdHidesAdmin(LeafletGeoAdmin):
 
-    list_display = ("id", "name", "address", "location", "created_at", "updated_at")
+#     list_display = ("id", "name", "address", "location", "created_at", "updated_at")

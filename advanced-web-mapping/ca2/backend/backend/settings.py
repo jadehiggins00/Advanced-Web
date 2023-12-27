@@ -45,10 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'pwa',
+    # 'pwa',
     'bird_hides',
     'frontend.apps.FrontendConfig',
-  
+    'leaflet'
     
 ]
 
@@ -112,10 +112,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'gis',             # Make sure this is the correct database name you have set up
-        'USER': 'docker',
-        'PASSWORD': 'docker',
-        'HOST': 'localhost',    # localhost  my-fyp wmap_postgis
-        'PORT': '25432',
+        'USER': 'myusername',
+        'PASSWORD': 'mypassword',
+        'HOST': 'localhost',    # Using the network alias
+        'PORT': '5432'
     }
 }
 
@@ -139,93 +139,93 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# logging
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'C:/Users/Jade Higgins/OneDrive - Technological University Dublin/4th-year-2023/awm-github/Advanced-Web/advanced-web-mapping/ca2/backend/backend/logs/django.log',
-            'formatter': 'verbose',
-        },
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],  # Add 'console' here
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'bird_hides': {
-            'handlers': ['file', 'console'],  # Add 'console' here
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
+# # logging
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '{levelname} {asctime} {module} {message}',
+#             'style': '{',
+#         },
+#         'simple': {
+#             'format': '{levelname} {message}',
+#             'style': '{',
+#         },
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': 'C:/Users/Jade Higgins/OneDrive - Technological University Dublin/4th-year-2023/awm-github/Advanced-Web/advanced-web-mapping/ca2/backend/backend/logs/django.log',
+#             'formatter': 'verbose',
+#         },
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file', 'console'],  # Add 'console' here
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'bird_hides': {
+#             'handlers': ['file', 'console'],  # Add 'console' here
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 
-PWA_APP_DEBUG_MODE = False
+# PWA_APP_DEBUG_MODE = False
 
-PWA_APP_NAME = 'Bird Hides'
-PWA_APP_DESCRIPTION = "add your own local bird hide"
-PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'any'
-PWA_APP_START_URL = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
-PWA_APP_ICONS = [
-    {
-        'src': '/static/images/bird3.png',
-        'sizes': '160x160',
+# PWA_APP_NAME = 'Bird Hides'
+# PWA_APP_DESCRIPTION = "add your own local bird hide"
+# PWA_APP_THEME_COLOR = '#0A0302'
+# PWA_APP_BACKGROUND_COLOR = '#ffffff'
+# PWA_APP_DISPLAY = 'standalone'
+# PWA_APP_SCOPE = '/'
+# PWA_APP_ORIENTATION = 'any'
+# PWA_APP_START_URL = '/'
+# PWA_APP_STATUS_BAR_COLOR = 'default'
+# PWA_APP_ICONS = [
+#     {
+#         'src': '/static/images/bird3.png',
+#         'sizes': '160x160',
      
-    },
-     {
-        'src': '/static/images/bird3.png',  # add a 512x512 icon
-        'sizes': '512x512',
+#     },
+#      {
+#         'src': '/static/images/bird3.png',  # add a 512x512 icon
+#         'sizes': '512x512',
      
-    }
-]
+#     }
+# ]
 
-PWA_APP_SPLASH_SCREEN = [
-    {
-        'src': '/static/images/bird3.png',
-        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-    }
-]
-PWA_APP_DIR = 'ltr'
-PWA_APP_LANG = 'en-US'
-PWA_APP_SHORTCUTS = [
-    {
-        'name': 'Shortcut',
-        'url': '/target',
-        'description': 'Shortcut to a page in my application'
-    }
-]
-PWA_APP_SCREENSHOTS = [
-    {
-      'src': '/static/images/bird3.png',
-      'sizes': '750x1334',
-      "type": "image/png"
-    }
-]
+# PWA_APP_SPLASH_SCREEN = [
+#     {
+#         'src': '/static/images/bird3.png',
+#         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+#     }
+# ]
+# PWA_APP_DIR = 'ltr'
+# PWA_APP_LANG = 'en-US'
+# PWA_APP_SHORTCUTS = [
+#     {
+#         'name': 'Shortcut',
+#         'url': '/target',
+#         'description': 'Shortcut to a page in my application'
+#     }
+# ]
+# PWA_APP_SCREENSHOTS = [
+#     {
+#       'src': '/static/images/bird3.png',
+#       'sizes': '750x1334',
+#       "type": "image/png"
+#     }
+# ]
 
 
 # Internationalization
@@ -242,18 +242,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Adjust if necessary
-    BASE_DIR / 'frontend/static',  # Adjust the path to where Webpack outputs files
+    os.path.join(BASE_DIR, 'frontend', 'static', 'frontend'),  # Updated path
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles' 
+
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'frontend/',  # Directory inside STATICFILES_DIRS
-        'STATS_FILE': BASE_DIR / 'webpack-stats.json',  # Generated by Webpack
+        'BUNDLE_DIR_NAME': 'frontend/',
+        'STATS_FILE': BASE_DIR / 'webpack-stats.json',
     }
 }
 
