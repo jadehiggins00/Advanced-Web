@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # 'pwa',
     'bird_hides',
     'frontend.apps.FrontendConfig',
-    'leaflet'
+ 
     
 ]
 
