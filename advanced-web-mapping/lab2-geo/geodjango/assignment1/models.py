@@ -7,7 +7,11 @@ class BirdHides(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     location = models.PointField(null=True) # Spatial Field Types
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 0130e62667ecc81662a9b993e1e9f060a744c636
     def __str__(self) -> str:
         return self.name
 

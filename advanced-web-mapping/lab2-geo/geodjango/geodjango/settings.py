@@ -20,7 +20,11 @@ os.environ['GDAL_DATA'] = f"{os.environ.get('CONDA_PREFIX','')}/share"
 
 
 
+<<<<<<< HEAD
 # CORS_ALLOW_ALL_ORIGINS = False
+=======
+CORS_ALLOW_ALL_ORIGINS = False
+>>>>>>> 0130e62667ecc81662a9b993e1e9f060a744c636
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,11 +46,19 @@ with open(f'{BASE_DIR}/secret_key.txt') as f:
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+<<<<<<< HEAD
 DEBUG = True
 
 #ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
 
 ALLOWED_HOSTS = []
+=======
+DEBUG = False
+
+#ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+>>>>>>> 0130e62667ecc81662a9b993e1e9f060a744c636
 
 # Application definition
 
@@ -62,8 +74,20 @@ INSTALLED_APPS = [
     # 'corsheaders',
     'assignment1',
     'widget_tweaks',
+    'rest_framework'
  
 ]
+
+LEAFLET_CONFIG = {
+    # "SPATIAL_EXTENT": (5.0, 44.0, 7.5, 46),
+    "DEFAULT_CENTER": (13.3888599, 52.5170365), #set your corordinate to reference to a solid place (the above coordinates places you somewhere on the sea in the middle east )
+    "DEFAULT_ZOOM": 16,
+    "MIN_ZOOM": 3,
+    "MAX_ZOOM": 20,
+    "DEFAULT_PRECISION": 6,
+    "SCALE": "both",
+    "ATTRIBUTION_PREFIX": "powered by <Your corporate name>",
+}
 CRISPY_TEMPLATE_PACK= 'bootstrap4'
 CRISPY_FAIL_SILENTLY = not DEBUG
 
@@ -210,7 +234,13 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # this can redirect the user to a new page 
+<<<<<<< HEAD
 #LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
+=======
+# LOGIN_REDIRECT_URL = "/assignment1/pine-martens"
+# LOGIN_URL = '/assignment1/login/'
+
+>>>>>>> 0130e62667ecc81662a9b993e1e9f060a744c636
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
