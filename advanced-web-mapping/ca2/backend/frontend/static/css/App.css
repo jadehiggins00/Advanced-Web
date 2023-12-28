@@ -237,6 +237,16 @@ body {
   background: #E65100 ;
 }
 
+.modalName{
+  z-index: 10000;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background: #FFF;
+
+  box-shadow: 2px 30px 50px 0px #F3F4FE;
+}
+
 
 /* header text */
 

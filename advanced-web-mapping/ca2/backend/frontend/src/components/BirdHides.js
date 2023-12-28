@@ -39,7 +39,7 @@ export default class BirdHides extends Component {
 
  // Method to handle button click
  handleAddLocationClick = () => {
-  debugger;
+  
   console.log('clickkk');
   navigator.geolocation.getCurrentPosition((position) => {
     this.setState({
@@ -67,22 +67,28 @@ submitNewLocation = () => {
     description: newLocationDescription,
   };
 
-  fetch('/api/add_location', {
+  fetch('/api/add_location/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(postData),
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
   .then(data => {
     console.log('Success:', data);
     this.setState({ showModal: false });
-    // You might want to update your map or state based on the response
   })
   .catch((error) => {
     console.error('Error:', error);
+
   });
+  
 };
   
 
@@ -163,7 +169,7 @@ submitNewLocation = () => {
         </MapContainer>
 
         {this.state.showModal && (
-          <div className="modal">
+          <div className="modalName">
             {/* You should create a proper modal component */}
             <input 
               type="text" 
