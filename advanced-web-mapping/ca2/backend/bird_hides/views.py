@@ -8,8 +8,12 @@ django.setup()
 from urllib.parse import quote_plus
 from rest_framework import generics
 from .models import BirdHides, BirdSpots, BirdLocation
-from bird_hides.serializers import BirdSpotsSerializer
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from .serializers import BirdLocationSerializer
 from django.contrib.gis.geos import Point
 from geopy.geocoders import Nominatim
 from django.http import JsonResponse
@@ -26,23 +30,33 @@ logger = logging.getLogger(__name__)
 geolocator = Nominatim(user_agent="location")
 
 
+class AddBirdLocation(APIView):
+    def post(self, request):
+        serializer = BirdLocationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-def add_bird_location(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            latitude = data['latitude']
-            longitude = data['longitude']
-            name = data.get('name', '')  # Optional
-            description = data.get('description', '')  # Optional
 
-            location = BirdLocation(latitude=latitude, longitude=longitude, name=name, description=description)
-            location.save()
 
-            return JsonResponse({'message': 'Location added successfully!'}, status=200)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
+
+# @csrf_exempt
+# def add_bird_location(request):
+#     if request.method == 'POST':
+#         try:
+#             data = json.loads(request.body)
+#             latitude = data['latitude']
+#             longitude = data['longitude']
+#             name = data.get('name', '')  # Optional
+#             description = data.get('description', '')  # Optional
+
+#             location = BirdLocation(latitude=latitude, longitude=longitude, name=name, description=description)
+#             location.save()
+
+#             return JsonResponse({'message': 'Location added successfully!'}, status=200)
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=400)
 
 
 # views.py
@@ -81,18 +95,18 @@ def get_all_locations(request):
 #             logger.error(f"Geocoding error: {e}")
 
 
-class BirdHide(viewsets.ModelViewSet):
-    queryset = BirdSpots.objects.all()
-    serializer_class = BirdSpotsSerializer
+# class BirdHide(viewsets.ModelViewSet):
+#     queryset = BirdSpots.objects.all()
+#     serializer_class = BirdSpotsSerializer
 
-    def perform_create(self, serializer):
-        lat = self.request.data.get('latitude')
-        lng = self.request.data.get('longitude')
-        if lat and lng:
-            location = Point(float(lng), float(lat))
-            serializer.save(location=location)
-        else:
-            serializer.save()
+#     def perform_create(self, serializer):
+#         lat = self.request.data.get('latitude')
+#         lng = self.request.data.get('longitude')
+#         if lat and lng:
+#             location = Point(float(lng), float(lat))
+#             serializer.save(location=location)
+#         else:
+#             serializer.save()
 
 # class BirdHidesUpdateRetreiveView(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = BirdHides.objects.all()
