@@ -15,13 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
+from bird_hides.views import manifest, offline, service_worker
+# from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('frontend.urls')), 
-    # path('', include('pwa.urls')),
+    # re_path('', include('pwa.urls')),
     path('api/', include('bird_hides.urls')), 
+ 
+    re_path(r"^serviceworker\.js$", service_worker, name="serviceworker"),
+    re_path(r"^manifest\.json$", manifest, name="manifest"),
+    path("offline/", offline, name="offline"),
 ]
 

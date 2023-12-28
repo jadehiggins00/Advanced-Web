@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    # 'pwa',
+    'pwa',
     'bird_hides',
     'frontend.apps.FrontendConfig',
     'leaflet'
@@ -181,52 +181,58 @@ AUTH_PASSWORD_VALIDATORS = [
 # }
 
 
-# PWA_APP_DEBUG_MODE = False
+PWA_APP_DEBUG_MODE = True
 
-# PWA_APP_NAME = 'Bird Hides'
-# PWA_APP_DESCRIPTION = "add your own local bird hide"
-# PWA_APP_THEME_COLOR = '#0A0302'
-# PWA_APP_BACKGROUND_COLOR = '#ffffff'
-# PWA_APP_DISPLAY = 'standalone'
-# PWA_APP_SCOPE = '/'
-# PWA_APP_ORIENTATION = 'any'
-# PWA_APP_START_URL = '/'
-# PWA_APP_STATUS_BAR_COLOR = 'default'
-# PWA_APP_ICONS = [
-#     {
-#         'src': '/static/images/bird3.png',
-#         'sizes': '160x160',
+PWA_APP_NAME = 'Bird Hides'
+PWA_APP_DESCRIPTION = "add your own local bird hide"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/bird160.png',
+        'sizes': '160x160',
      
-#     },
-#      {
-#         'src': '/static/images/bird3.png',  # add a 512x512 icon
-#         'sizes': '512x512',
+    },
+     {
+        'src': '/static/images/bird3.png',  # add a 512x512 icon
+        'sizes': '512x512',
      
-#     }
-# ]
+    }
+]
 
-# PWA_APP_SPLASH_SCREEN = [
-#     {
-#         'src': '/static/images/bird3.png',
-#         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-#     }
-# ]
-# PWA_APP_DIR = 'ltr'
-# PWA_APP_LANG = 'en-US'
-# PWA_APP_SHORTCUTS = [
-#     {
-#         'name': 'Shortcut',
-#         'url': '/target',
-#         'description': 'Shortcut to a page in my application'
-#     }
-# ]
-# PWA_APP_SCREENSHOTS = [
-#     {
-#       'src': '/static/images/bird3.png',
-#       'sizes': '750x1334',
-#       "type": "image/png"
-#     }
-# ]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/bird3.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'Shortcut',
+        'url': '/target',
+        'description': 'Shortcut to a page in my application'
+    }
+]
+PWA_APP_SCREENSHOTS = [
+    {
+      'src': '/static/images/bird3.png',
+      'sizes': '750x1334',
+      "type": "image/png"
+    },
+       {
+        'src': '/static/images/kingfisher.png',
+        'sizes': '1280x782',
+        'type': 'image/png',
+        'form_factor': 'wide',
+    }
+]
 
 
 # Internationalization
@@ -248,8 +254,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend', 'static', 'frontend'),  # Updated path
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'frontend', 'static')
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+PWA_SERVICE_WORKER_PATH = os.path.join(STATIC_ROOT, 'service-worker.js')
 
 WEBPACK_LOADER = {
     'DEFAULT': {

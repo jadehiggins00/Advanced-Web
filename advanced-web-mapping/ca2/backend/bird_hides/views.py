@@ -20,9 +20,12 @@ from django.http import JsonResponse
 import requests
 import logging
 from django.http import JsonResponse
+from django.http import HttpResponse
+
 
 from django.views.decorators.csrf import csrf_exempt
 import json
+from backend import app_settings
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +41,28 @@ class AddBirdLocation(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+def service_worker(request):
+    response = HttpResponse(
+        open(app_settings.PWA_SERVICE_WORKER_PATH).read(), content_type="application/javascript"
+    )
+    return response
 
+
+def manifest(request):
+    return render(
+        request,
+        "manifest.json",
+        {
+            setting_name: getattr(app_settings, setting_name)
+            for setting_name in dir(app_settings)
+            if setting_name.startswith("PWA_")
+        },
+        content_type="application/json",
+    )
+
+
+def offline(request):
+    return render(request, "offline.html")
 
 
 # @csrf_exempt
