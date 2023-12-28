@@ -4,7 +4,6 @@ import osmtogeojson from 'osmtogeojson';
 
 
 
-
 export default class BirdHides extends Component {
   
   constructor(props) {
@@ -18,8 +17,26 @@ export default class BirdHides extends Component {
       newLocationDescription: '',
      
     };
-
   }
+
+  customMarkerIcon = L.icon({
+    iconUrl: '/static/images/bio.png', // Replace with your image path
+    iconSize: [35, 35], // Size of the icon
+    iconAnchor: [12, 41], 
+    popupAnchor: [0, -41], 
+  });
+
+ 
+  geoJsonStyle = () => {
+    return {
+      color: '#E65100',       
+      weight: 5,          
+      opacity: 1,
+      fillOpacity: 0.7
+    };
+  };
+
+
  // Method to handle button click
  handleAddLocationClick = () => {
   debugger;
@@ -71,6 +88,7 @@ submitNewLocation = () => {
 
 
   componentDidMount() {
+
     fetch('/api/birdhides_ireland')
       .then(response => response.json())
       .then(osmData => {
@@ -98,11 +116,6 @@ submitNewLocation = () => {
     }
   };
 
-
-
-
-
-
   render() {
     const { geojsonData, locations } = this.state;
 
@@ -111,21 +124,26 @@ submitNewLocation = () => {
         <MapContainer
           center={[53.4129, -8.2439]}
           zoom={6}
-         
+          
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
+            className="grayscale-tiles"
           />
        
           {geojsonData && (
             <GeoJSON
               data={geojsonData}
               onEachFeature={this.onEachFeature}
+              style={this.geoJsonStyle}
+         
             />
           )}
+
+     
           {locations.map((location, index) => (
-            <Marker key={index} position={[location.latitude, location.longitude]}>
+            <Marker key={index} position={[location.latitude, location.longitude]} icon={this.customMarkerIcon} >
               <Popup>
                 {location.name ? <strong>{location.name}</strong> : 'Unknown Location'}
                 <br />
@@ -134,7 +152,7 @@ submitNewLocation = () => {
             </Marker>
           ))}
 
-         <button className='btn btn-primary btn-map' onClick={this.handleAddLocationClick}>
+         <button className='btn btn-map' onClick={this.handleAddLocationClick}>
           Add Your Location
         </button>
 
