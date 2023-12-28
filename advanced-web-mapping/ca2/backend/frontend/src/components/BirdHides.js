@@ -1,41 +1,74 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
-import L from 'leaflet';
 
-class Modal extends Component {
-  render() {
-    const { show, onClose, onSubmit, onNameChange, onDescriptionChange } = this.props;
 
-    if (!show) {
-      return null;
-    }
 
-    return (
-      <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000 }}>
-        <h2>Add Bird Location</h2>
-        <form onSubmit={onSubmit}>
-          <input type="text" placeholder="Name" onChange={onNameChange} />
-          <textarea placeholder="Description" onChange={onDescriptionChange}></textarea>
-          <button type="submit">Add Location</button>
-          <button onClick={onClose}>Close</button>
-        </form>
-      </div>
-    );
-  }
-}
 
 export default class BirdHides extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       geojsonData: null,
       locations: [],
       showModal: false,
-      newLocation: { latitude: null, longitude: null, name: '', description: '' }
+      currentLocation: null,
+      newLocationName: '',
+      newLocationDescription: '',
+     
     };
-    this.mapRef = React.createRef();
+
   }
+ // Method to handle button click
+ handleAddLocationClick = () => {
+  debugger;
+  console.log('clickkk');
+  navigator.geolocation.getCurrentPosition((position) => {
+    this.setState({
+      currentLocation: {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      },
+      showModal: true
+    });
+  });
+};
+
+// Method to handle form changes
+handleFormChange = (e) => {
+  this.setState({ [e.target.name]: e.target.value });
+};
+
+// Method to submit the new location
+submitNewLocation = () => {
+  const { currentLocation, newLocationName, newLocationDescription } = this.state;
+  const postData = {
+    latitude: currentLocation.latitude,
+    longitude: currentLocation.longitude,
+    name: newLocationName,
+    description: newLocationDescription,
+  };
+
+  fetch('/api/add_location', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(postData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+    this.setState({ showModal: false });
+    // You might want to update your map or state based on the response
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+};
+  
+
 
   componentDidMount() {
     fetch('/api/birdhides_ireland')
@@ -52,51 +85,12 @@ export default class BirdHides extends Component {
         this.setState({ locations: data.locations });
       })
       .catch(error => console.error('Error:', error));
+
+   
   }
 
-  handleMapClick = (e) => {
-    debugger;
-    console.log('hiiiii')
-    const { lat, lng } = e.latlng;
-    this.setState({
-      showModal: true,
-      newLocation: { latitude: lat, longitude: lng, name: '', description: '' }
-    });
-  };
 
-  testButtonClick = () => {
-    console.log('Button clicked!');
-    this.setState({
-      showModal: true,
-      newLocation: { latitude: 53.4129, longitude: -8.2439, name: '', description: '' }
-    });
-  };
 
-  handleNameChange = (e) => {
-    this.setState({ newLocation: { ...this.state.newLocation, name: e.target.value } });
-  };
-
-  handleDescriptionChange = (e) => {
-    this.setState({ newLocation: { ...this.state.newLocation, description: e.target.value } });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    fetch('/api/add_location/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.state.newLocation)
-    })
-    .then(response => response.json())
-    .then(data => {
-      this.setState({ showModal: false, locations: [...this.state.locations, data] });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  };
 
   onEachFeature = (feature, layer) => {
     if (feature.properties && feature.properties.name) {
@@ -104,22 +98,26 @@ export default class BirdHides extends Component {
     }
   };
 
+
+
+
+
+
   render() {
-    const { geojsonData, locations, showModal } = this.state;
+    const { geojsonData, locations } = this.state;
 
     return (
       <div>
-
-<button onClick={this.testButtonClick}>Test Button</button>
         <MapContainer
           center={[53.4129, -8.2439]}
           zoom={6}
-          onClick={this.handleMapClick}
+         
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; OpenStreetMap contributors'
           />
+       
           {geojsonData && (
             <GeoJSON
               data={geojsonData}
@@ -135,16 +133,40 @@ export default class BirdHides extends Component {
               </Popup>
             </Marker>
           ))}
+
+         <button className='btn btn-primary btn-map' onClick={this.handleAddLocationClick}>
+          Add Your Location
+        </button>
+
+    
+  
+    
+    
         </MapContainer>
-        <Modal
-          show={showModal}
-          onClose={() => this.setState({ showModal: false })}
-          onSubmit={this.handleSubmit}
-          onNameChange={this.handleNameChange}
-          onDescriptionChange={this.handleDescriptionChange}
-        />
+
+        {this.state.showModal && (
+          <div className="modal">
+            {/* You should create a proper modal component */}
+            <input 
+              type="text" 
+              name="newLocationName" 
+              placeholder="Name" 
+              onChange={this.handleFormChange} 
+            />
+            <textarea 
+              name="newLocationDescription" 
+              placeholder="Description" 
+              onChange={this.handleFormChange} 
+            />
+            <button onClick={this.submitNewLocation}>Submit</button>
+            <button onClick={() => this.setState({showModal: false})}>Close</button>
+          </div>
+        )}
 
 
+        <div>
+          
+        </div>
       </div>
     );
   }
