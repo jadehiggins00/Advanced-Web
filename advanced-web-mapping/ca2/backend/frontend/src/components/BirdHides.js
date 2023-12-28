@@ -1,45 +1,102 @@
 import React, { Component } from 'react';
-import { createRoot } from 'react-dom/client';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
 import L from 'leaflet';
+
+class Modal extends Component {
+  render() {
+    const { show, onClose, onSubmit, onNameChange, onDescriptionChange } = this.props;
+
+    if (!show) {
+      return null;
+    }
+
+    return (
+      <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000 }}>
+        <h2>Add Bird Location</h2>
+        <form onSubmit={onSubmit}>
+          <input type="text" placeholder="Name" onChange={onNameChange} />
+          <textarea placeholder="Description" onChange={onDescriptionChange}></textarea>
+          <button type="submit">Add Location</button>
+          <button onClick={onClose}>Close</button>
+        </form>
+      </div>
+    );
+  }
+}
 
 export default class BirdHides extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      geojsonData: null, // State to store converted GeoJSON data
-      locations: [],     // State to store location data from backend
+      geojsonData: null,
+      locations: [],
+      showModal: false,
+      newLocation: { latitude: null, longitude: null, name: '', description: '' }
     };
     this.mapRef = React.createRef();
   }
 
   componentDidMount() {
-    // Fetch GeoJSON data
     fetch('/api/birdhides_ireland')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(osmData => {
         const geojsonData = osmtogeojson(osmData);
         this.setState({ geojsonData });
       })
-      .catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
-      });
+      .catch(error => console.error('Error:', error));
 
-   
-      fetch('/api/get_all_locations')
+    fetch('/api/get_all_locations')
       .then(response => response.json())
       .then(data => {
-        console.log(data); // Corrected position of console.log
         this.setState({ locations: data.locations });
       })
-      .catch(error => console.error('Error fetching locations:', error));
+      .catch(error => console.error('Error:', error));
   }
+
+  handleMapClick = (e) => {
+    debugger;
+    console.log('hiiiii')
+    const { lat, lng } = e.latlng;
+    this.setState({
+      showModal: true,
+      newLocation: { latitude: lat, longitude: lng, name: '', description: '' }
+    });
+  };
+
+  testButtonClick = () => {
+    console.log('Button clicked!');
+    this.setState({
+      showModal: true,
+      newLocation: { latitude: 53.4129, longitude: -8.2439, name: '', description: '' }
+    });
+  };
+
+  handleNameChange = (e) => {
+    this.setState({ newLocation: { ...this.state.newLocation, name: e.target.value } });
+  };
+
+  handleDescriptionChange = (e) => {
+    this.setState({ newLocation: { ...this.state.newLocation, description: e.target.value } });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    fetch('/api/add_location/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.state.newLocation)
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.setState({ showModal: false, locations: [...this.state.locations, data] });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  };
 
   onEachFeature = (feature, layer) => {
     if (feature.properties && feature.properties.name) {
@@ -48,14 +105,16 @@ export default class BirdHides extends Component {
   };
 
   render() {
-    const { geojsonData, locations } = this.state;
+    const { geojsonData, locations, showModal } = this.state;
 
     return (
       <div>
+
+<button onClick={this.testButtonClick}>Test Button</button>
         <MapContainer
           center={[53.4129, -8.2439]}
           zoom={6}
-          whenCreated={mapInstance => { this.mapRef.current = mapInstance; }}
+          onClick={this.handleMapClick}
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -77,14 +136,16 @@ export default class BirdHides extends Component {
             </Marker>
           ))}
         </MapContainer>
+        <Modal
+          show={showModal}
+          onClose={() => this.setState({ showModal: false })}
+          onSubmit={this.handleSubmit}
+          onNameChange={this.handleNameChange}
+          onDescriptionChange={this.handleDescriptionChange}
+        />
+
+
       </div>
     );
   }
 }
-
-// Uncomment and use the following lines if you are mounting this component directly in your HTML
-// const birdhidesDiv = document.getElementById('birdhides');
-// if (birdhidesDiv) {
-//   const root = createRoot(birdhidesDiv);
-//   root.render(<BirdHides />);
-// }
