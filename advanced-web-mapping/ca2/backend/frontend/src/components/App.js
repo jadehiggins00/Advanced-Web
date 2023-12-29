@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Species from './Species';
@@ -227,7 +227,7 @@ class App extends React.Component {
           <Routes>
 
             <Route exact path='/' element={<Home logout={this.logout} />} />
-            <Route path='/species' element={<Species />} />
+            <Route path='/species' element={<Species logout={this.logout} />} />
             <Route path='/logout' element={<LogoutWrapper onLogout={this.logout} />} />
 
 
