@@ -264,7 +264,23 @@ body {
   font-style: normal;
   font-weight: 700;
   color: #111A75;
-  font-size: 233%;
+  font-size: 189%;
+}
+
+.green-main-text{
+  font-family: 'Sarpanch';
+  font-style: normal;
+  font-weight: 700;
+  color:  #9BC83B;
+  font-size: 154%;
+}
+
+.orange-main-text{
+  font-family: 'Sarpanch';
+  font-style: normal;
+  font-weight: 700;
+  color:  #FF5A00;
+  font-size: 154%;
 }
 
 .white-main-text{
@@ -388,39 +404,66 @@ body {
   font-size: 20px;
 
 }
-
-
-.map-label{
+.map-label {
   position: absolute;
   top: 19px;
   right: 10px;
-  background-color:white;
+  background-color: white;
   opacity: 0.8;
   width: 22%;
   height: 19%;
 }
 
-.map-text{
-  font-family: 'Sarpanch';
+@media (max-width: 576px) { /* Adjust for smaller screens */
+  .map-label {
+    width: 50%; /* Increase width on smaller screens */
+    height: auto; /* Let height adjust automatically */
+    top: 10px; /* Adjust as needed */
+    right: 10px;
+  }
+}
+.map-text {
+  font-family: 'Sarpanch', sans-serif;
   font-style: normal;
-  font-weight:700;
-  font-size: 13px;
+  font-weight: 700;
+  font-size: 13px; /* Adjust for larger screens */
   color: black;
   margin-top: 17%;
- 
 }
 
-.legned-row{
-  height: 5%
+@media (max-width: 576px) {
+  .map-text {
+    font-size: 12px; /* Smaller font size for mobile devices */
+    margin-top: 10%; /* Adjust the margin top as needed */
+  }
 }
 
-.legend{
-  width:40%;
+.legend-row {
+  height: 5%;
+}
+
+@media (max-width: 576px) {
+  .legend-row {
+    height: auto; /* Let height adjust automatically on smaller screens */
+  }
+}
+
+.legend {
+  width: 40%;
   height: 40%;
   margin-top: 40%;
- 
-  /* padding: 5% */
 }
+
+@media (max-width: 576px) {
+  .legend {
+    width: 50%; /* Increase size on smaller screens */
+    height: auto; /* Adjust height automatically */
+    margin-top: 20%; /* Reduce the top margin */
+  }
+}
+
+
+
 /* background colour for fossil tab button */
 #fossil-tab{
   box-shadow: 2px 30px 50px 0px rgba(218, 222, 255, 1) ;

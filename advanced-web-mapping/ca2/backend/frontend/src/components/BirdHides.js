@@ -190,37 +190,25 @@ export default class BirdHides extends Component {
                         </Marker>
                     ))}
                     <button className='btn btn-map' onClick={this.handleAddLocationClick}>Add Your Location</button>
-                    <div className="map-label" style={{  zIndex: 500 }}>
-
-
-                            <div className="row">
-
-                              <div className="col-4 d-flex justify-content-end ">
-                              <img src={LegendOrange} alt="Fossil tab" className="legend " />
-                              </div>
-                              <div className="col-8 d-flex justify-content-start ">
-
-                              <h6 className=" map-text  ">OSM Locations</h6>
-                                </div>
+                    <div className="map-label" style={{ zIndex: 500 }}>
+                        <div className="row">
+                            <div className="col-md-4 col-12 d-flex justify-content-end">
+                            <img src={LegendOrange} alt="Fossil tab" className="legend" />
                             </div>
-
-                            <div className="row legend-row">
-
-                              <div className="col-4 d-flex justify-content-end ">
-                              <img src={LegendBlue} alt="Fossil tab" className="legend " />
-                              </div>
-                              <div className="col-8 d-flex justify-content-start ">
-
-                              <h6 className=" map-text  ">User Locations</h6>
-
-                              </div>
+                            <div className="col-md-8 col-12 d-flex justify-content-start">
+                            <h6 className="map-text">OSM Locations</h6>
                             </div>
+                        </div>
+                        <div className="row legend-row">
+                            <div className="col-md-4 col-12 d-flex justify-content-end">
+                            <img src={LegendBlue} alt="Fossil tab" className="legend" />
+                            </div>
+                            <div className="col-md-8 col-12 d-flex justify-content-start">
+                            <h6 className="map-text">User Locations</h6>
+                            </div>
+                        </div>
+                        </div>
 
-
-
-
-
-                      </div>
 
 
 
@@ -260,7 +248,7 @@ export default class BirdHides extends Component {
               </div>
 
               <div className='col-1'>
-                hiiii
+             
               </div>
 
             </div>

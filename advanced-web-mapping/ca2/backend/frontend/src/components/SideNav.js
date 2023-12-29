@@ -50,7 +50,7 @@ const SideNav = ({ logout }) => {
                                         <button className="btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fossil" id="fossil-tab">
                                             <img src={claw} alt="Fossil tab" className="nav-icon mt-1" />
                                      
-                                            <span className=" text-container nav-text " id="nav-text-fossil"  >Species</span>
+                                            <span className=" text-container nav-text " id="nav-text-fossil"  > Birds</span>
                                         </button>
                                     </Link>
 
