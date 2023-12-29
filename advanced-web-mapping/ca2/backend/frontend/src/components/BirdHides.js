@@ -1,7 +1,8 @@
 import React, { createRef, Component } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
-
+import LegendOrange from '../../static/images/legendOrange.svg';
+import LegendBlue from '../../static/images/legendBlue.svg';
 
 
 export default class BirdHides extends Component {
@@ -162,6 +163,37 @@ submitNewLocation = () => {
           Add Your Location
         </button>
 
+        <div className="map-label" style={{  zIndex: 500 }}>
+
+
+        <div className="row">
+
+          <div className="col-4 d-flex justify-content-end ">
+          <img src={LegendOrange} alt="Fossil tab" className="legend " />
+          </div>
+          <div className="col-8 d-flex justify-content-start ">
+        
+          <h6 className=" map-text  ">OSM Locations</h6>
+            </div>
+        </div>
+
+      <div className="row legend-row">
+
+          <div className="col-4 d-flex justify-content-end ">
+          <img src={LegendBlue} alt="Fossil tab" className="legend " />
+          </div>
+          <div className="col-8 d-flex justify-content-start ">
+        
+          <h6 className=" map-text  ">User Locations</h6>
+
+          </div>
+      </div>
+  
+
+
+        
+
+</div>
     
   
     
