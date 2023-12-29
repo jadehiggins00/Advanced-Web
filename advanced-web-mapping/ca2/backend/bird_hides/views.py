@@ -7,7 +7,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')  # Adjust ac
 django.setup()
 from urllib.parse import quote_plus
 from rest_framework import generics
-from .models import BirdHides, BirdSpots, BirdLocation
+from .models import BirdHides, BirdSpots, BirdLocation, User
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -30,7 +30,8 @@ import json
 from backend import app_settings
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
 logger = logging.getLogger(__name__)
 
 
@@ -41,6 +42,24 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
+
+@require_POST
+def register_view(request):
+    data = json.loads(request.body)
+    username = data.get('username')
+    email = data.get('email')
+    password = data.get('password')
+
+    if not all([username, email, password]):
+        return JsonResponse({'detail': 'Please provide username, email, and password.'}, status=400)
+
+    if User.objects.filter(username=username).exists():
+        return JsonResponse({'detail': 'Username already taken.'}, status=400)
+
+    user = User.objects.create_user(username=username, email=email, password=password)
+    # You can add additional steps here, like creating a Profile instance.
+
+    return JsonResponse({'detail': 'Successfully registered.'})
 
 @require_POST
 def login_view(request):
@@ -128,6 +147,7 @@ def whoami_view(request):
 
 # add bird spot location
 class AddBirdLocation(APIView):
+  
     def post(self, request):
         serializer = BirdLocationSerializer(data=request.data)
         if serializer.is_valid():
@@ -137,6 +157,7 @@ class AddBirdLocation(APIView):
 
 #update 
 class UpdateBirdLocation(APIView):
+    permission_classes = [IsAuthenticated]
     def put(self, request, pk):
         try:
             bird_location = BirdLocation.objects.get(pk=pk)

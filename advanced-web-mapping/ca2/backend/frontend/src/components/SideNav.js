@@ -7,8 +7,6 @@ import Logout from '../../static/images/Logout.svg';
 
 const SideNav = ({ logout }) => {
 
-
-   
     return (
         <div className="container-fluid ms-1 ">
             <div className="row">
@@ -73,27 +71,14 @@ const SideNav = ({ logout }) => {
                                         title=""
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="right"
-                                        data-bs-original-title="Bio"  // Updated tooltip title
-                                        id="leaf-tab"                    // Updated ID
-                                        onClick={logout}                 // Attach the logout function here
+                                        data-bs-original-title="Bio"  
+                                        id="leaf-tab"                   
+                                        onClick={logout}                 
                                         >
                                         <img src={Logout} alt="Logout tab" className="leaf-icon" />
                                         <span className="text-container nav-text" id="nav-text-bio">Logout</span>
                                         </button>
 
-                                    
-                                        {/* <Link to="/logout" >
-                                            <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
-                                                <img src={Logout} alt="Bio tab" className="leaf-icon  " />
-                                                <span className=" text-container nav-text" id="nav-text-bio" >Logout</span>
-                                            </button>
-                                        </Link> */}
-
-                                    
-                                        {/* <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Species" id="species-tab">
-                                            <img src={Species} alt="Species tab" className="leaf-icon " />
-                                            <span className=" text-container nav-text" id="nav-text-species3" >Species 3</span>
-                                        </button> */}
                                     </div>
                                 </div>
                             </li>

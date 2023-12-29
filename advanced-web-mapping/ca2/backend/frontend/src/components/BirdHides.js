@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
 import L from 'leaflet';
+import Cookies from 'universal-cookie';
 
 import LegendOrange from '../../static/images/legendOrange.svg';
 import LegendBlue from '../../static/images/legendBlue.svg';
@@ -9,6 +10,7 @@ import LegendBlue from '../../static/images/legendBlue.svg';
 export default class BirdHides extends Component {
     constructor(props) {
         super(props);
+        this.cookies = new Cookies();
         this.state = {
             geojsonData: null,
             locations: [],
@@ -17,6 +19,7 @@ export default class BirdHides extends Component {
             newLocationName: '',
             newLocationDescription: '',
             editingLocationId: null,
+           
         };
     }
 
@@ -69,7 +72,9 @@ export default class BirdHides extends Component {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': this.cookies.get('csrftoken'),
             },
+            credentials: 'include',
             body: JSON.stringify(postData),
         })
         .then(response => {
@@ -89,7 +94,7 @@ export default class BirdHides extends Component {
     };
 
     handleEditLocation = (location) => {
-      debugger;
+   
         this.setState({
             currentLocation: {
                 latitude: location.latitude,
@@ -111,6 +116,11 @@ export default class BirdHides extends Component {
   
       fetch(`/api/delete_location/${locationId}/`, {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': this.cookies.get('csrftoken'),
+        },
+        credentials: 'include',
       })
       .then(response => {
           if (!response.ok) {

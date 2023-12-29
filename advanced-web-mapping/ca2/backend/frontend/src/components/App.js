@@ -19,15 +19,22 @@ class App extends React.Component {
 
     this.state = {
       username: "",
+      email: "", 
       password: "",
       error: "",
       isAuthenticated: false,
+      showRegistrationForm: false,
+    
     };
   }
 
   componentDidMount = () => {
     this.getSession();
+   
   }
+
+  
+  
 
   getSession = () => {
     fetch("/api/session/", {
@@ -70,12 +77,48 @@ class App extends React.Component {
     this.setState({ username: event.target.value });
   }
 
+  toggleRegistrationForm = () => {
+    this.setState(prevState => ({
+      showRegistrationForm: !prevState.showRegistrationForm
+    }));
+  }
+
   isResponseOk = (response) => {
     if (response.status >= 200 && response.status <= 299) {
       return response.json();
     } else {
       throw Error(response.statusText);
     }
+  }
+
+  handleEmailChange = (event) => {
+    this.setState({ email: event.target.value });
+  }
+
+  register = (event) => {
+    event.preventDefault();
+    fetch("/api/register/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": cookies.get("csrftoken"),
+      },
+      credentials: "same-origin",
+      body: JSON.stringify({
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password
+      }),
+    })
+    .then(this.isResponseOk)
+    .then((data) => {
+      console.log(data);
+   //TODO: redirect to login
+    })
+    .catch((err) => {
+      console.log(err);
+      this.setState({ error: "Registration failed." });
+    });
   }
 
   login = (event) => {
@@ -138,7 +181,38 @@ class App extends React.Component {
               </div>
             </div>
             <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
+           
+
           </form>
+          <button type="submit" onClick={this.toggleRegistrationForm} className="btn btn-primary" >Register</button>
+
+          {this.state.showRegistrationForm && ( 
+              <div>
+              <form onSubmit={this.register}>
+                    <div className="form-group">
+                      <label htmlFor="username">Username</label>
+                      <input type="text" className="form-control" id="username" name="username" value={this.state.username} onChange={this.handleUserNameChange} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Email</label>
+                      <input type="email" className="form-control" id="email" name="email" value={this.state.email} onChange={this.handleEmailChange} />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <input type="password" className="form-control" id="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Register</button>
+                    {this.state.error && <div className="error">{this.state.error}</div>}
+              </form>
+
+              </div>
+
+          )}
+
+
+
+        
+    
         </div>
       );
     }
