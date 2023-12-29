@@ -22,6 +22,7 @@ from bird_hides.views import manifest, offline, service_worker
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('django.contrib.auth.urls')), 
     path('', include('frontend.urls')), 
     # re_path('', include('pwa.urls')),
     path('api/', include('bird_hides.urls')), 

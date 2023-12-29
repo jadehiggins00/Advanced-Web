@@ -21,8 +21,10 @@ import requests
 import logging
 from django.http import JsonResponse
 from django.http import HttpResponse
-
-
+from django.views.decorators.csrf import csrf_exempt
+from .models import User
+from django.contrib.auth.hashers import make_password
+from .forms import SignUpForm
 from django.views.decorators.csrf import csrf_exempt
 import json
 from backend import app_settings
@@ -31,6 +33,37 @@ logger = logging.getLogger(__name__)
 
 
 geolocator = Nominatim(user_agent="location")
+
+@csrf_exempt
+def register(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+
+        # Create new user
+        user = User.objects.create(
+            username=username,
+            email=email,
+            password=make_password(password)  # Hash the password
+        )
+
+        return JsonResponse({'message': 'User created successfully.'}, status=201)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'message': 'Signup successful'}, status=201)
+        else:
+            return JsonResponse({'errors': form.errors}, status=400)
+    else:
+        form = SignUpForm()
+        return JsonResponse({'form': form.as_p()})
 
 # add bird spot location
 class AddBirdLocation(APIView):

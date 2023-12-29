@@ -1,7 +1,9 @@
-from django.urls import path
-from .views import fetch_bird_hides_in_ireland, get_all_locations, AddBirdLocation, UpdateBirdLocation, DeleteBirdLocation
+from django.urls import path, include
+from .views import fetch_bird_hides_in_ireland, get_all_locations, AddBirdLocation, UpdateBirdLocation, DeleteBirdLocation, register
 
 urlpatterns = [
+    path('register/', register, name='register'),
+    path('login/', include('django.contrib.auth.urls')),
     path('get_all_locations/', get_all_locations, name='get_all_locations'),
     path('birdhides_ireland/', fetch_bird_hides_in_ireland, name='birdhides_ireland'),
     path('add_location/', AddBirdLocation.as_view(), name='add_location'),

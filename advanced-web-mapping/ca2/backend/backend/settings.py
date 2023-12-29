@@ -245,6 +245,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+CSRF_COOKIE_HTTPONLY = False
+
+# Inside settings.py
+CSRF_COOKIE_NAME = 'pogmohoin'  # If set, this is your cookie name
 
 
 # Static files (CSS, JavaScript, Images)

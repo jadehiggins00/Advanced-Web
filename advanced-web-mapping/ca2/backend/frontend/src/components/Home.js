@@ -46,8 +46,4 @@ const Home = () => {
 
 export default Home;
 
-// const appDiv = document.getElementById('app');
-// if (appDiv) {
-//   const root = createRoot(appDiv);
-//   root.render(<App />);
-// }
+

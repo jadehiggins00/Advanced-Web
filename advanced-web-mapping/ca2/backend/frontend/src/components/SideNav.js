@@ -16,28 +16,35 @@ const SideNav = () => {
                             <li className='pt-5'> 
                                 <div className="nav-item d-flex justify-content-start">
                                     <div className="button-container">
-                                    {/* <Link to="/" >
-                                        <button className="btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fossil" id="fossil-tab">
-                                            <img src={Map} alt="Fossil tab" className="nav-icon mt-1" />
-                                         
-                                            <span className=" text-container nav-text " id="nav-text-fossil"  >Home</span>
-                                        </button>
-                                    </Link> */}
-                                    
-                                    
-                                  
-                                    </div>
-                                </div>
-                            </li>
-                            <li className='pt-5'>
-                                <div className="nav-item d-flex justify-content-start">
-                                    <div className="button-container">
+                           
+    
                                         <Link to="/" >
                                             <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
                                                 <img src={Map} alt="Bio tab" className="leaf-icon  " />
                                                 <span className=" text-container nav-text" id="nav-text-bio" >Home</span>
                                             </button>
                                         </Link>
+                                  
+                                    </div>
+                                </div>
+                            </li>
+                            <li className='pt-5'>
+                                <div className="nav-item d-flex justify-content-start">
+                                    <div className="button-container">
+                                        {/* <Link to="/" >
+                                            <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
+                                                <img src={Map} alt="Bio tab" className="leaf-icon  " />
+                                                <span className=" text-container nav-text" id="nav-text-bio" >Home</span>
+                                            </button>
+                                        </Link> */}
+
+                                    <Link to="/species" >
+                                        <button className="btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fossil" id="fossil-tab">
+                                            <img src={claw} alt="Fossil tab" className="nav-icon mt-1" />
+                                     
+                                            <span className=" text-container nav-text " id="nav-text-fossil"  >Species</span>
+                                        </button>
+                                    </Link>
                                     </div>
                                   
                                 </div>
@@ -45,11 +52,11 @@ const SideNav = () => {
                             <li className='pt-5'>
                                 <div className="nav-item d-flex justify-content-start">
                                     <div className="button-container">
-                                    <Link to="/species" >
+                                    <Link to="/login" >
                                         <button className="btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fossil" id="fossil-tab">
                                             <img src={claw} alt="Fossil tab" className="nav-icon mt-1" />
                                      
-                                            <span className=" text-container nav-text " id="nav-text-fossil"  >Species</span>
+                                            <span className=" text-container nav-text " id="nav-text-fossil"  >Login</span>
                                         </button>
                                     </Link>
                                         
