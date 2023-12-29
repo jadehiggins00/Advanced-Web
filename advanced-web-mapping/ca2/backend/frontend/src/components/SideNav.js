@@ -5,7 +5,7 @@ import claw from '../../static/images/claw-tab.svg';
 import Map from '../../static/images/map.svg';
 import Logout from '../../static/images/Logout.svg';
 
-const SideNav = () => {
+const SideNav = ({ logout }) => {
 
 
    
@@ -55,6 +55,12 @@ const SideNav = () => {
                                             <span className=" text-container nav-text " id="nav-text-fossil"  >Species</span>
                                         </button>
                                     </Link>
+
+                                {/* <Link to="/species" className="btn tab-button d-flex align-items-center justify-content-center">
+                                <img src={claw} alt="Species tab" className="nav-icon mt-1" />
+                                <span className="text-container nav-text">Species</span>
+                                </Link> */}
+
                                     </div>
                                   
                                 </div>
@@ -62,15 +68,26 @@ const SideNav = () => {
                             <li className='pt-5'>
                                 <div className="nav-item d-flex justify-content-start">
                                     <div className="button-container">
-                              
+                                    <button 
+                                        className="btn tab-button d-flex align-items-center justify-content-center"
+                                        title=""
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="right"
+                                        data-bs-original-title="Bio"  // Updated tooltip title
+                                        id="leaf-tab"                    // Updated ID
+                                        onClick={logout}                 // Attach the logout function here
+                                        >
+                                        <img src={Logout} alt="Logout tab" className="leaf-icon" />
+                                        <span className="text-container nav-text" id="nav-text-bio">Logout</span>
+                                        </button>
 
                                     
-                                        <Link to="/logout" >
+                                        {/* <Link to="/logout" >
                                             <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
                                                 <img src={Logout} alt="Bio tab" className="leaf-icon  " />
                                                 <span className=" text-container nav-text" id="nav-text-bio" >Logout</span>
                                             </button>
-                                        </Link>
+                                        </Link> */}
 
                                     
                                         {/* <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Species" id="species-tab">

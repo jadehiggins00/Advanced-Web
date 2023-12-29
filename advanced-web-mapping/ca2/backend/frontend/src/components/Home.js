@@ -12,13 +12,13 @@ import Curlew from '../../static/images/curlew.jpg';
 // export default class Home extends Component {
 //   render() {
 
-const Home = () => {
+const Home = ({ logout }) => {
     return (
       <div className="container-fluid ">
         <Header/>
         <div className="row">
           <div className="sidenav col-sm-auto sticky-top">
-            <SideNav/>
+            <SideNav logout={logout} />
           </div>
           <div className="col-sm p-3 min-vh-100">
             <div className="row">

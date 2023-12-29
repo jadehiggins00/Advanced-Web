@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Species from './Species';
+import SideNav from './SideNav';
 import Logout from './Logout';
+import Header from './Header';
+import BirdHides from './BirdHides';
+import LogoutWrapper from './LogoutWrapper';
 
 import '../../static/css/App.css';
 
@@ -112,6 +116,8 @@ class App extends React.Component {
     if (!this.state.isAuthenticated) {
       return (
         <div className="container mt-3">
+
+         
           <h1>React Cookie Auth</h1>
           <br />
           <h2>Login</h2>
@@ -131,7 +137,7 @@ class App extends React.Component {
                 }
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">Login</button>
+            <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
           </form>
         </div>
       );
@@ -140,18 +146,25 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
+
+        
+      
+     
           <Routes>
-            <Route exact path='/' element={<Home />} />
+
+            <Route exact path='/' element={<Home logout={this.logout} />} />
             <Route path='/species' element={<Species />} />
-            <Route path='/logout' element={<Logout onLogout={this.logout} />} />
+            <Route path='/logout' element={<LogoutWrapper onLogout={this.logout} />} />
+
+
        
           </Routes>
-          <div className="container mt-3">
-            <h1>Are you sure you want to sign out?</h1>
+          {/* <div className="container mt-3"> */}
+            {/* <h1>Are you sure you want to sign out?</h1>
             <p>You are logged in!</p>
             <button className="btn btn-primary mr-2" onClick={this.whoami}>WhoAmI</button>
-            <button className="btn btn-danger" onClick={this.logout}>Log out</button>
-          </div>
+            <button className="btn btn-danger" onClick={this.logout}>Log out</button> */}
+          {/* </div> */}
         </div>
       </Router>
     );
