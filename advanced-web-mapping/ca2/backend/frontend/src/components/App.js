@@ -7,7 +7,7 @@ import BirdHides from './BirdHides';
 import Header from './Header';
 import SideNav from './SideNav';
 import '../../static/css/App.css';
-
+import Curlew from '../../static/images/curlew.jpg';
 
 export default class App extends Component {
  
@@ -24,25 +24,27 @@ export default class App extends Component {
               <SideNav/>
 
           </div>
+
+          
           <div className="col-sm p-3 min-vh-100">
       
 
             <div className="row">
                 <div className="col-7" >
+          
                 <BirdHides/>
                 
                 </div>
                 <div className="col-5  " >
-                {/* <RasterMap/> */}
-                {/* <RasterMap/> */}
-                {/* <h1 className="blue-main-text">
-                Natterjack Toad Predictions</h1>
-                <p>blah blah blah blah blah</p>
-                <p>blah blah blah blah blah</p>
-                <h3 className="h3-main-text">
-               47 known observations</h3> */}
+           
 
-               hii
+              
+                  <h1 className="blue-main-text">
+                  Welcome to Irish Bird Watch</h1>
+                  {/* <img src={Curlew} alt="image of curlew" className=" "
+                /> */}
+
+              <h4>Feathered Treasures of the Emerald Isle: Discover Ireland's Rich Tapestry of Birdlife</h4>
                 <div className="d-flex  justify-content-end ">
              
                 </div>
@@ -50,12 +52,21 @@ export default class App extends Component {
                 </div>
             </div>
             <div className="row pt-5">
-                <div className="col-6 pt-2" >
+                {/* <div className="col-6" >
 
                 </div>
-                <div className="col-6 pt-4" >
+                <div className="col-6 " >
          
-                </div>
+                </div> */}
+
+
+              
+            <img src={Curlew} alt="image of curlew" className="  col-7 "
+                />
+
+
+
+                
             </div>
     
           

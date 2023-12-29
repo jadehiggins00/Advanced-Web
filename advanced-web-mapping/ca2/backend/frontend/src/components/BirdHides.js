@@ -169,21 +169,47 @@ submitNewLocation = () => {
         </MapContainer>
 
         {this.state.showModal && (
-          <div className="modalName">
-            {/* You should create a proper modal component */}
-            <input 
-              type="text" 
-              name="newLocationName" 
-              placeholder="Name" 
-              onChange={this.handleFormChange} 
-            />
-            <textarea 
-              name="newLocationDescription" 
-              placeholder="Description" 
-              onChange={this.handleFormChange} 
-            />
-            <button onClick={this.submitNewLocation}>Submit</button>
-            <button onClick={() => this.setState({showModal: false})}>Close</button>
+          <div className="container-fluid ">
+            <div className='row'>
+              <div className='col-11'>
+              <div className='row form-items'>
+                  <input 
+                    className='input-group pt-1'
+                    type="text" 
+                    name="newLocationName" 
+                    placeholder="Name of Location" 
+                    onChange={this.handleFormChange} 
+                  />
+              </div>
+              <div className='row'>
+                <textarea 
+                    className='input-group'
+                  name="newLocationDescription" 
+                  placeholder="Bird Description" 
+                  onChange={this.handleFormChange} 
+                />
+              </div>
+              <div className='row'>
+                <div className='col-5'>
+                  <button className='btn btn-secondary' onClick={this.submitNewLocation}>Submit</button>
+                </div>
+                <div className='col-2'>
+                  <button onClick={() => this.setState({showModal: false})}>Close</button>
+                </div>
+
+
+              </div>
+              </div>
+
+              <div className='col-1'>
+                hiiii
+              </div>
+
+            </div>
+       
+         
+        
+
           </div>
         )}
 

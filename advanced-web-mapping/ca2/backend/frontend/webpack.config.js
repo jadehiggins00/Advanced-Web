@@ -14,11 +14,13 @@ module.exports = {
         exclude: /node_modules/,
         use: "babel-loader",
       },
+     
       {
         test: /\.css$/,
         exclude: /node_modules/,
         use: ["style-loader", "css-loader"],
       },
+  
       {
         test: /\.svg$/,
         use: [
@@ -29,6 +31,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i, // Add rule for other image formats
+        type: 'asset/resource',
       },
     ],
   },
