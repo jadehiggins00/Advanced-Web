@@ -245,11 +245,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-CSRF_COOKIE_HTTPONLY = False
 
-# Inside settings.py
-CSRF_COOKIE_NAME = 'pogmohoin'  # If set, this is your cookie name
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = False  # False since we will grab it via universal-cookies
+SESSION_COOKIE_HTTPONLY = True
 
+# PROD ONLY
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

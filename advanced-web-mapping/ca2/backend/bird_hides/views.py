@@ -28,42 +28,103 @@ from .forms import SignUpForm
 from django.views.decorators.csrf import csrf_exempt
 import json
 from backend import app_settings
+from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
 
 logger = logging.getLogger(__name__)
 
 
 geolocator = Nominatim(user_agent="location")
 
-@csrf_exempt
-def register(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        username = data.get('username')
-        email = data.get('email')
-        password = data.get('password')
-
-        # Create new user
-        user = User.objects.create(
-            username=username,
-            email=email,
-            password=make_password(password)  # Hash the password
-        )
-
-        return JsonResponse({'message': 'User created successfully.'}, status=201)
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.http import require_POST
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'message': 'Signup successful'}, status=201)
-        else:
-            return JsonResponse({'errors': form.errors}, status=400)
-    else:
-        form = SignUpForm()
-        return JsonResponse({'form': form.as_p()})
+@require_POST
+def login_view(request):
+    data = json.loads(request.body)
+    username = data.get('username')
+    password = data.get('password')
+
+    if username is None or password is None:
+        return JsonResponse({'detail': 'Please provide username and password.'}, status=400)
+
+    user = authenticate(username=username, password=password)
+
+    if user is None:
+        return JsonResponse({'detail': 'Invalid credentials.'}, status=400)
+
+    login(request, user)
+    return JsonResponse({'detail': 'Successfully logged in.'})
+
+
+def logout_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'detail': 'You\'re not logged in.'}, status=400)
+
+    logout(request)
+    return JsonResponse({'detail': 'Successfully logged out.'})
+
+
+@ensure_csrf_cookie
+def session_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'isAuthenticated': False})
+
+    return JsonResponse({'isAuthenticated': True})
+
+
+def whoami_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'isAuthenticated': False})
+
+    return JsonResponse({'username': request.user.username})
+
+
+# def login_view(request):
+#     username = request.POST.get('username')
+#     password = request.POST.get('password')
+#     user = authenticate(request, username=username, password=password)
+#     if user is not None:
+#         login(request, user)
+#         return JsonResponse({"status": "success"})
+#     else:
+#         return JsonResponse({"status": "error", "message": "Invalid credentials"})
+
+
+
+# @csrf_exempt
+# def register(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         username = data.get('username')
+#         email = data.get('email')
+#         password = data.get('password')
+
+#         # Create new user
+#         user = User.objects.create(
+#             username=username,
+#             email=email,
+#             password=make_password(password)  # Hash the password
+#         )
+
+#         return JsonResponse({'message': 'User created successfully.'}, status=201)
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+# def signup(request):
+#     if request.method == 'POST':
+#         form = SignUpForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return JsonResponse({'message': 'Signup successful'}, status=201)
+#         else:
+#             return JsonResponse({'errors': form.errors}, status=400)
+#     else:
+#         form = SignUpForm()
+#         return JsonResponse({'form': form.as_p()})
 
 # add bird spot location
 class AddBirdLocation(APIView):

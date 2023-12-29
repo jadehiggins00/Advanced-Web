@@ -3,71 +3,61 @@ import '../../static/css/App.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    function getCsrfToken() {
-        debugger;
-        const csrfTokenName = 'pogmohoin'; // Your CSRF cookie name
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-            let [name, value] = cookie.trim().split('=');
-            if (name === csrfTokenName) {
-                return decodeURIComponent(value);
-            }
-        }
-        return null; // Or handle the absence of CSRF token as needed
-    }
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const csrfToken = getCsrfToken();
 
-        axios.post('/auth/login/', {
-            username,
-            password,
-            csrfmiddlewaretoken: csrfToken,
-        }).then(response => {
-            // Handle success
-        }).catch(error => {
-            // Handle error
-        });
+        try {
+            const response = await axios.post('/api/login/', { username, password });
+            if (response.data.status === 'success') {
+                // Handle successful login
+                // For example, redirect to a dashboard or home page
+                console.log('Login successful');
+            } else {
+                // Handle failed login
+                setError(response.data.message || 'Login failed');
+            }
+        } catch (error) {
+            // Handle network or other axios-related errors
+            setError('An error occurred during login');
+        }
     };
 
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3">
-                    <h2 className="text-center">Log In</h2>
-                    <form onSubmit={handleSubmit} className="mt-4">
-                        <div className="form-group">
-                            <label>Username</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary btn-block mt-2">Log In</button>
-                        <Link to="/signup" className="btn btn-primary d-flex align-items-center justify-content-center" title="">
-       
-                            <span className="text-container nav-text" id="nav-text-bio">Home</span>
-                        </Link>
-                    </form>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
                 </div>
-            </div>
+                <div>
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <button type="submit">Login</button>
+                {error && <div className="error">{error}</div>}
+            </form>
+             
+        <Link to="/signup" >
+                            <button className="btn btn-primary d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fossil" id="fossil-tab">
+
+                            
+                                <span className=" text-container nav-text " id="nav-text-fossil"  >Species</span>
+                            </button>
+                        </Link>
+                     
         </div>
     );
 };
