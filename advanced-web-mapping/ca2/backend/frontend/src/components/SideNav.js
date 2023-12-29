@@ -32,10 +32,10 @@ const SideNav = () => {
                             <li className='pt-5'>
                                 <div className="nav-item d-flex justify-content-start">
                                     <div className="button-container">
-                                        <Link to="/toad" >
+                                        <Link to="/" >
                                             <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
                                                 <img src={Map} alt="Bio tab" className="leaf-icon  " />
-                                                <span className=" text-container nav-text" id="nav-text-bio" >Species 2</span>
+                                                <span className=" text-container nav-text" id="nav-text-bio" >Home</span>
                                             </button>
                                         </Link>
                                     </div>
