@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 geolocator = Nominatim(user_agent="location")
 
-
+# add bird spot location
 class AddBirdLocation(APIView):
     def post(self, request):
         serializer = BirdLocationSerializer(data=request.data)
@@ -40,6 +40,31 @@ class AddBirdLocation(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#update 
+class UpdateBirdLocation(APIView):
+    def put(self, request, pk):
+        try:
+            bird_location = BirdLocation.objects.get(pk=pk)
+        except BirdLocation.DoesNotExist:
+            return Response({'error': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BirdLocationSerializer(bird_location, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteBirdLocation(APIView):
+    def delete(self, request, pk):
+        try:
+            bird_location = BirdLocation.objects.get(pk=pk)
+        except BirdLocation.DoesNotExist:
+            return Response({'error': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        bird_location.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 def service_worker(request):
     response = HttpResponse(

@@ -20,6 +20,7 @@ class BirdSpots(models.Model):
 
 
 class BirdLocation(models.Model):
+    id = models.AutoField(primary_key=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
     name = models.CharField(max_length=100, blank=True)  # Bird's name
