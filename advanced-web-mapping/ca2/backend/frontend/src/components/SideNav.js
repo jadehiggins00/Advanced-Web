@@ -3,8 +3,11 @@ import '../../static/css/App.css';
 import {  Link } from 'react-router-dom';
 import claw from '../../static/images/claw-tab.svg';
 import Map from '../../static/images/map.svg';
+import Logout from '../../static/images/Logout.svg';
 
 const SideNav = () => {
+
+
    
     return (
         <div className="container-fluid ms-1 ">
@@ -18,12 +21,19 @@ const SideNav = () => {
                                     <div className="button-container">
                            
     
-                                        <Link to="/" >
+                                        {/* <Link to="/" >
                                             <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
                                                 <img src={Map} alt="Bio tab" className="leaf-icon  " />
                                                 <span className=" text-container nav-text" id="nav-text-bio" >Home</span>
                                             </button>
-                                        </Link>
+                                        </Link> */}
+
+                                      <Link to="/" >
+                                         <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Species" id="species-tab">
+                                            <img src={Map} alt="Species tab" className="leaf-icon " />
+                                            <span className=" text-container nav-text" id="nav-text-species3" >Home</span>
+                                        </button>
+                                    </Link>
                                   
                                     </div>
                                 </div>
@@ -52,14 +62,17 @@ const SideNav = () => {
                             <li className='pt-5'>
                                 <div className="nav-item d-flex justify-content-start">
                                     <div className="button-container">
-                                    <Link to="/login" >
-                                        <button className="btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Fossil" id="fossil-tab">
-                                            <img src={claw} alt="Fossil tab" className="nav-icon mt-1" />
-                                     
-                                            <span className=" text-container nav-text " id="nav-text-fossil"  >Login</span>
-                                        </button>
-                                    </Link>
-                                        
+                              
+
+                                    
+                                        <Link to="/logout" >
+                                            <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Bio" id="leaf-tab">
+                                                <img src={Logout} alt="Bio tab" className="leaf-icon  " />
+                                                <span className=" text-container nav-text" id="nav-text-bio" >Logout</span>
+                                            </button>
+                                        </Link>
+
+                                    
                                         {/* <button  className=" btn tab-button d-flex align-items-center justify-content-center" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Species" id="species-tab">
                                             <img src={Species} alt="Species tab" className="leaf-icon " />
                                             <span className=" text-container nav-text" id="nav-text-species3" >Species 3</span>

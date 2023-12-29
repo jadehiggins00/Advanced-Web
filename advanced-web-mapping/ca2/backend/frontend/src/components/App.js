@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Home from './Home';
 import Species from './Species';
+import Logout from './Logout';
 
 import '../../static/css/App.css';
 
@@ -142,12 +143,11 @@ class App extends React.Component {
           <Routes>
             <Route exact path='/' element={<Home />} />
             <Route path='/species' element={<Species />} />
-            {/* <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} /> */}
-            {/* Add additional Routes here if necessary */}
+            <Route path='/logout' element={<Logout onLogout={this.logout} />} />
+       
           </Routes>
           <div className="container mt-3">
-            <h1>React Cookie Auth</h1>
+            <h1>Are you sure you want to sign out?</h1>
             <p>You are logged in!</p>
             <button className="btn btn-primary mr-2" onClick={this.whoami}>WhoAmI</button>
             <button className="btn btn-danger" onClick={this.logout}>Log out</button>
