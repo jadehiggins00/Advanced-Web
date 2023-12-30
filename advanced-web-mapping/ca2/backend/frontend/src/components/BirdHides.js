@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import osmtogeojson from 'osmtogeojson';
 import L from 'leaflet';
 import Cookies from 'universal-cookie';
-
+import Logout from '../../static/images/Logout.svg';
 import LegendOrange from '../../static/images/legendOrange.svg';
 import LegendBlue from '../../static/images/legendBlue.svg';
 
@@ -193,21 +193,22 @@ export default class BirdHides extends Component {
                     <div className="map-label" style={{ zIndex: 500 }}>
                         <div className="row">
                             <div className="col-md-4 col-12 d-flex justify-content-end">
-                            <img src={LegendOrange} alt="Fossil tab" className="img-fluid legend" />
+                                <img src={LegendOrange} alt="orange tab" className="img-fluid legend" />
                             </div>
-                            <div className="col-md-8 col-12 d-flex justify-content-start">
-                            <h6 className="map-text">OSM Locations</h6>
+                            <div className="col-md-8 col-12 d-flex align-items-center justify-content-start">
+                                <h6 className="">OSM Locations</h6>
                             </div>
                         </div>
                         <div className="row legend-row">
                             <div className="col-md-4 col-12 d-flex justify-content-end">
-                            <img src={LegendBlue} alt="Fossil tab" className="img-fluid legend" />
+                                <img src={LegendBlue} alt="blue tab" className="img-fluid legend" />
                             </div>
-                            <div className="col-md-8 col-12 d-flex justify-content-start">
-                            <h6 className="map-text">User Locations</h6>
+                            <div className="col-md-8 col-12 d-flex align-items-center justify-content-start">
+                                <h6 className="">User Locations</h6>
                             </div>
                         </div>
-                        </div>
+                    </div>
+
 
 
 
@@ -246,11 +247,11 @@ export default class BirdHides extends Component {
            
                     
                        <div className='row'>
-                           <div className='col-12 col-sm-5'>
-                               <button className='btn btn-secondary w-100' onClick={this.submitNewLocation}>Submit</button>
+                           <div className='col-12 col-sm-5 '>
+                               <button className='btn btn-secondary w-100 mt-2 ' onClick={this.submitNewLocation}>Submit</button>
                            </div>
                            <div className='col-12 col-sm-2 mt-2 mt-sm-0'>
-                               <button className='btn btn-danger w-100' onClick={() => this.setState({showModal: false})}>Close</button>
+                               <button className='btn btn-danger w-100 mt-2' onClick={() => this.setState({showModal: false})}>Close</button>
                            </div>
                        </div>
                    </div>

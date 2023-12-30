@@ -228,19 +228,27 @@ body {
   filter: grayscale(100%);
 }
 
-.curlew-banner{
-  /* width:50%;
-  height: 200px; */
+.watch-banner{
+  width:50%;
+  height: 200px;
 }
 
-.btn.btn-map{
+.btn.btn-map {
   position: absolute;
   bottom: 10px;
   left: 10px;
   z-index: 10000;
   color: white;
-  background: #E65100 ;
+  background: #E65100;
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
 }
+
+.btn.btn-map:hover {
+  color: white;
+  background-color: #CC4700; /* Slightly darker shade of the original color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25); /* Adding a subtle shadow */
+}
+
 
 .modalView{
   z-index: 10000;
@@ -410,33 +418,38 @@ body {
   right: 10px;
   background-color: white;
   opacity: 0.8;
-  width: 22%;
-  height: 19%;
+  width: 22%; /* Consider using max-width for larger screens */
+  padding: 10px; /* Added padding for better spacing */
 }
-
 
 .map-text {
   font-family: 'Sarpanch', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 13px; /* Adjust for larger screens */
+  font-size: 1rem; /* Responsive font size */
   color: black;
-  margin-top: 17%;
+  margin-top: 0; /* Adjusted margin */
 }
-
-
-
-.legend-row {
-  height: 5%;
-}
-
-
 
 .legend {
-  width: 40%;
-  height: 40%;
-  margin-top: 40%;
+  width: auto; /* Let Bootstrap's img-fluid handle the width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 40%; /* Maximum width */
+  margin-top: 10%; /* Adjust margin */
 }
+
+/* Responsive adjustments for larger screens */
+@media (min-width: 768px) {
+  .map-text {
+    font-size: 1.2rem; /* Slightly larger font for larger screens */
+  }
+
+  .legend {
+    max-width: 40%; /* Adjust as needed */
+    margin-top: 15%; /* Larger margin for alignment */
+  }
+}
+
 
 
 
