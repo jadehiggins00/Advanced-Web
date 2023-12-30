@@ -40,7 +40,7 @@ const Species = ({ logout }) => {
               </div>
               <div className="col-md-7 col-12 d-flex justify-content-end" > {/* Adjust for medium devices and smaller */}
                
-                <img src={Curlew} alt="curlew bird" className=" me-2" />
+                <img src={Curlew} alt="curlew bird" className="img-fluid me-2" />
               </div>
             </div>
             <div className="row pt-5">
@@ -54,7 +54,7 @@ const Species = ({ logout }) => {
                 <h5 className='pt-3'> The Top 5 Most Popular Bird Species to Spot Across the Emerald Isle</h5> */}
              
                 
-                <img src={Puffins} alt="puffin bird" className=" me-2" />
+                <img src={Puffins} alt="puffin bird" className="img-fluid me-2" />
               </div>
               <div className="col-md-5 col-12 " > {/* Adjust for medium devices and smaller */}
                

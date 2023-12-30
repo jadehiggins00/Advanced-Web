@@ -184,8 +184,8 @@ export default class BirdHides extends Component {
                                 <br />
                                 {location.description}
                                 <br />
-                                <button onClick={() => this.handleEditLocation(location)}>Edit</button>
-                                <button onClick={() => this.handleDeleteLocation(location.id)}>Delete</button>
+                                <button className='btn btn-secondary mt-2' onClick={() => this.handleEditLocation(location)}>Edit</button>
+                                <button className='btn btn-danger ms-1 mt-2' onClick={() => this.handleDeleteLocation(location.id)}>Delete</button>
                             </Popup>
                         </Marker>
                     ))}
@@ -193,7 +193,7 @@ export default class BirdHides extends Component {
                     <div className="map-label" style={{ zIndex: 500 }}>
                         <div className="row">
                             <div className="col-md-4 col-12 d-flex justify-content-end">
-                            <img src={LegendOrange} alt="Fossil tab" className="legend" />
+                            <img src={LegendOrange} alt="Fossil tab" className="img-fluid legend" />
                             </div>
                             <div className="col-md-8 col-12 d-flex justify-content-start">
                             <h6 className="map-text">OSM Locations</h6>
@@ -201,7 +201,7 @@ export default class BirdHides extends Component {
                         </div>
                         <div className="row legend-row">
                             <div className="col-md-4 col-12 d-flex justify-content-end">
-                            <img src={LegendBlue} alt="Fossil tab" className="legend" />
+                            <img src={LegendBlue} alt="Fossil tab" className="img-fluid legend" />
                             </div>
                             <div className="col-md-8 col-12 d-flex justify-content-start">
                             <h6 className="map-text">User Locations</h6>
@@ -215,48 +215,51 @@ export default class BirdHides extends Component {
                 </MapContainer>
 
                 {this.state.showModal && (
-          <div className="container-fluid ">
-            <div className='row'>
-              <div className='col-11'>
-              <div className='row form-items'>
-                  <input 
-                    className='input-group pt-1'
-                    type="text" 
-                    name="newLocationName" 
-                    placeholder="Name of Location" 
-                    onChange={this.handleFormChange} 
-                  />
-              </div>
-              <div className='row'>
-                <textarea 
-                    className='input-group'
-                  name="newLocationDescription" 
-                  placeholder="Bird Description" 
-                  onChange={this.handleFormChange} 
-                />
-              </div>
-              <div className='row'>
-                <div className='col-5'>
-                  <button className='btn btn-secondary' onClick={this.submitNewLocation}>Submit</button>
-                </div>
-                <div className='col-2'>
-                  <button onClick={() => this.setState({showModal: false})}>Close</button>
-                </div>
-
-
-              </div>
-              </div>
-
-              <div className='col-1'>
-             
-              </div>
-
-            </div>
-       
-         
-        
-
-          </div>
+               <div className="container-fluid">
+               <div className='row'>
+                  
+                   <div className='col-12 col-md-11 pt-3'>
+                     
+                       <div className='row form-items'>
+                           <div className='col'>
+                               <input 
+                                   className='form-control'
+                                   type="text" 
+                                   name="newLocationName" 
+                                   placeholder="Name of Location" 
+                                   onChange={this.handleFormChange} 
+                               />
+                           </div>
+                       </div>
+           
+                    
+                       <div className='row'>
+                           <div className='col'>
+                               <textarea 
+                                   className='form-control'
+                                   name="newLocationDescription" 
+                                   placeholder="Bird Description" 
+                                   onChange={this.handleFormChange}
+                               ></textarea>
+                           </div>
+                       </div>
+           
+                    
+                       <div className='row'>
+                           <div className='col-12 col-sm-5'>
+                               <button className='btn btn-secondary w-100' onClick={this.submitNewLocation}>Submit</button>
+                           </div>
+                           <div className='col-12 col-sm-2 mt-2 mt-sm-0'>
+                               <button className='btn btn-danger w-100' onClick={() => this.setState({showModal: false})}>Close</button>
+                           </div>
+                       </div>
+                   </div>
+           
+                 
+                   <div className='col-1 d-none d-md-block'></div>
+               </div>
+           </div>
+           
         )}
 
             </div>

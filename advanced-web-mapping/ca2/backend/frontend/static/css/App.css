@@ -414,14 +414,7 @@ body {
   height: 19%;
 }
 
-@media (max-width: 576px) { /* Adjust for smaller screens */
-  .map-label {
-    width: 50%; /* Increase width on smaller screens */
-    height: auto; /* Let height adjust automatically */
-    top: 10px; /* Adjust as needed */
-    right: 10px;
-  }
-}
+
 .map-text {
   font-family: 'Sarpanch', sans-serif;
   font-style: normal;
@@ -431,22 +424,13 @@ body {
   margin-top: 17%;
 }
 
-@media (max-width: 576px) {
-  .map-text {
-    font-size: 12px; /* Smaller font size for mobile devices */
-    margin-top: 10%; /* Adjust the margin top as needed */
-  }
-}
+
 
 .legend-row {
   height: 5%;
 }
 
-@media (max-width: 576px) {
-  .legend-row {
-    height: auto; /* Let height adjust automatically on smaller screens */
-  }
-}
+
 
 .legend {
   width: 40%;
@@ -454,13 +438,7 @@ body {
   margin-top: 40%;
 }
 
-@media (max-width: 576px) {
-  .legend {
-    width: 50%; /* Increase size on smaller screens */
-    height: auto; /* Adjust height automatically */
-    margin-top: 20%; /* Reduce the top margin */
-  }
-}
+
 
 
 

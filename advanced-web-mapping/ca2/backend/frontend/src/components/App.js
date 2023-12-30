@@ -24,7 +24,7 @@ class App extends React.Component {
       error: "",
       isAuthenticated: false,
       showRegistrationForm: false,
-    
+      showLoginForm: true,
     };
   }
 
@@ -79,9 +79,10 @@ class App extends React.Component {
 
   toggleRegistrationForm = () => {
     this.setState(prevState => ({
-      showRegistrationForm: !prevState.showRegistrationForm
+        showRegistrationForm: !prevState.showRegistrationForm,
+        showLoginForm: !prevState.showLoginForm
     }));
-  }
+}
 
   isResponseOk = (response) => {
     if (response.status >= 200 && response.status <= 299) {
@@ -114,6 +115,7 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
    //TODO: redirect to login
+   this.showLoginForm();
     })
     .catch((err) => {
       console.log(err);
@@ -121,6 +123,9 @@ class App extends React.Component {
     });
   }
 
+  showLoginForm = () => {
+    this.setState({ showLoginForm: true, showRegistrationForm: false });
+  }
   login = (event) => {
     event.preventDefault();
     fetch("/api/login/", {
@@ -158,62 +163,62 @@ class App extends React.Component {
   render() {
     if (!this.state.isAuthenticated) {
       return (
-        <div className="container mt-3">
+        <div className="container-fluid mt-3">
+        <Header/>
+        <div className="row justify-content-center">
+            <div className="col-12 col-md-8 col-lg-6">
+          
+                <br />
+            {this.state.showLoginForm && (
 
-         
-          <h1>React Cookie Auth</h1>
-          <br />
-          <h2>Login</h2>
-          <form onSubmit={this.login}>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input type="text" className="form-control" id="username" name="username" value={this.state.username} onChange={this.handleUserNameChange} />
+              <div className='mt-4'>
+                <h2>Login</h2>
+                <form onSubmit={this.login}>
+                    <div className="form-group">
+                        <label htmlFor="username">Username</label>
+                        <input type="text" className="form-control" id="username" name="username" value={this.state.username} onChange={this.handleUserNameChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" className="form-control" id="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                        {this.state.error &&
+                        <small className="text-danger">
+                            {this.state.error}
+                        </small>}
+                    </div>
+                    <button type="submit" className="btn btn-primary mt-3" onClick={this.login}>Login</button>
+                    <button type="submit" onClick={this.toggleRegistrationForm} className="btn btn-primary ms-2 mt-3">Register</button>
+                </form>
+                {/* <button type="submit" onClick={this.toggleRegistrationForm} className="btn btn-primary mt-3">Register</button> */}
+                </div>
+      
+                )}
+                {this.state.showRegistrationForm && (
+                  
+                    <div className="mt-4">
+                         <h2>Register</h2>
+                        <form onSubmit={this.register}>
+                            <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <input type="text" className="form-control" id="username" name="username" value={this.state.username} onChange={this.handleUserNameChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="email">Email</label>
+                                <input type="email" className="form-control" id="email" name="email" value={this.state.email} onChange={this.handleEmailChange} />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <input type="password" className="form-control" id="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
+                            </div>
+                            <button type="submit" className="btn btn-primary mt-3">Register</button>
+                            {this.state.error && <div className="error">{this.state.error}</div>}
+                        </form>
+                    </div>
+                )}
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-              <div>
-                {this.state.error &&
-                  <small className="text-danger">
-                    {this.state.error}
-                  </small>
-                }
-              </div>
-            </div>
-            <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
-           
-
-          </form>
-          <button type="submit" onClick={this.toggleRegistrationForm} className="btn btn-primary" >Register</button>
-
-          {this.state.showRegistrationForm && ( 
-              <div>
-              <form onSubmit={this.register}>
-                    <div className="form-group">
-                      <label htmlFor="username">Username</label>
-                      <input type="text" className="form-control" id="username" name="username" value={this.state.username} onChange={this.handleUserNameChange} />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="email">Email</label>
-                      <input type="email" className="form-control" id="email" name="email" value={this.state.email} onChange={this.handleEmailChange} />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
-                      <input type="password" className="form-control" id="password" name="password" value={this.state.password} onChange={this.handlePasswordChange} />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Register</button>
-                    {this.state.error && <div className="error">{this.state.error}</div>}
-              </form>
-
-              </div>
-
-          )}
-
-
-
-        
-    
         </div>
+    </div>
+    
       );
     }
 
