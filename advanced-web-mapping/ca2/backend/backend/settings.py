@@ -26,12 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5_2s@#f70ueuzigmu1sxwc+1e_$4ow=gqn!#*-p5$j=nims^q%'
+with open(f'{BASE_DIR}/secret_key.txt') as f:
+   SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
+   
+DEBUG = True
+
+# ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -133,8 +138,8 @@ DATABASES = {
 #         'NAME': 'gis',             # Make sure this is the correct database name you have set up
 #         'USER': 'docker',
 #         'PASSWORD': 'docker',
-#         'HOST': 'localhost',    # localhost  my-fyp wmap_postgis
-#         'PORT': '25432',
+#         'HOST': 'wmap_postgis',    # localhost  my-fyp wmap_postgis
+#         'PORT': '5432',
 #     }
 # }
 
@@ -284,7 +289,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'static'
 
-PWA_SERVICE_WORKER_PATH = os.path.join(STATIC_ROOT, 'service-worker.js')
+PWA_SERVICE_WORKER_PATH = os.path.join(STATIC_ROOT, 'serviceworker.js')
 
 WEBPACK_LOADER = {
     'DEFAULT': {

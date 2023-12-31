@@ -1,9 +1,10 @@
 """Settings required by django-app."""
 import os
-
+# from click import Path
+from pathlib import Path
 from django.conf import settings
 from django.shortcuts import resolve_url
-from django.urls import get_script_prefix
+from django.urls import get_script_prefix, path
 from django.utils.functional import lazy
 
 # Lazy-evaluate URLs so including pwa.urls in root urlconf works
@@ -13,11 +14,18 @@ resolve_url = lazy(resolve_url, str)
 _PWA_SCRIPT_PREFIX = get_script_prefix()
 
 # Path to the service worker implementation.  Default implementation is empty.
-PWA_SERVICE_WORKER_PATH = getattr(
-    settings,
-    "PWA_SERVICE_WORKER_PATH",
-    os.path.join(os.path.abspath(os.path.dirname(__file__)), "templates", "serviceworker.js"),
-)
+# PWA_SERVICE_WORKER_PATH = getattr(
+#     settings,
+#     "PWA_SERVICE_WORKER_PATH",
+#     os.path.join(os.path.abspath(os.path.dirname(__file__)), "templates", "service-worker.js"),
+# )
+BASE_DIR = Path(__file__).resolve().parent.parent
+# PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'frontend', 'static', 'service-worker.js')
+
+STATIC_ROOT = BASE_DIR / 'static'
+PWA_SERVICE_WORKER_PATH = os.path.join(STATIC_ROOT, 'serviceworker.js')
+
+
 # App parameters to include in manifest.json and appropriate meta tags
 PWA_APP_NAME = getattr(settings, "PWA_APP_NAME", "MyApp")
 PWA_APP_DESCRIPTION = getattr(settings, "PWA_APP_DESCRIPTION", "My Progressive Web App")

@@ -26,7 +26,7 @@ urlpatterns = [
     path('', include('frontend.urls')), 
     # re_path('', include('pwa.urls')),
     path('api/', include('bird_hides.urls')), 
- 
+    # path('service-worker.js', service_worker, name='service-worker'),
     re_path(r"^serviceworker\.js$", service_worker, name="serviceworker"),
     re_path(r"^manifest\.json$", manifest, name="manifest"),
     path("offline/", offline, name="offline"),
