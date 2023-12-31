@@ -34,7 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 # Application definition
 
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,7 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'backend.middleware.SimpleLoggingMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+
 ]
 
 
@@ -84,6 +85,9 @@ CORS_ORIGIN_WHITELIST = [
 
 ]
 
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'backend.urls'
@@ -91,6 +95,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [BASE_DIR / 'frontend/templates/frontend'],
         'DIRS': [BASE_DIR / 'frontend/templates/frontend'],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -264,8 +269,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend', 'static', 'frontend'),  # Updated path
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'frontend', 'static')
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_ROOT = BASE_DIR / 'static'
 
 PWA_SERVICE_WORKER_PATH = os.path.join(STATIC_ROOT, 'service-worker.js')
 
