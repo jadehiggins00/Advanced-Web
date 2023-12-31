@@ -127,6 +127,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': 'gis',             # Make sure this is the correct database name you have set up
+#         'USER': 'docker',
+#         'PASSWORD': 'docker',
+#         'HOST': 'localhost',    # localhost  my-fyp wmap_postgis
+#         'PORT': '25432',
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
