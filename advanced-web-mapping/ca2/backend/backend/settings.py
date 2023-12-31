@@ -33,7 +33,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,7 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'backend.middleware.SimpleLoggingMiddleware',
-   
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 
