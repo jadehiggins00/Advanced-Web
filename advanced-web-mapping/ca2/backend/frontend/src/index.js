@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import  App  from "./components/App";
 
-import '../static/css/App.css';
+
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/static/service-worker.js').then(function(registration) {
