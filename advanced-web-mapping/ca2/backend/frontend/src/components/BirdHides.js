@@ -7,6 +7,7 @@ import Logout from '../../static/images/Logout.svg';
 import LegendOrange from '../../static/images/legendOrange.svg';
 import LegendBlue from '../../static/images/legendBlue.svg';
 
+
 export default class BirdHides extends Component {
     constructor(props) {
         super(props);
