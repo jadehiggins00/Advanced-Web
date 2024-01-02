@@ -32,11 +32,11 @@ with open(f'{BASE_DIR}/secret_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
    
 DEBUG = True
 
-# ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
+ALLOWED_HOSTS = ['blah.today', '40.113.49.212']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -121,27 +121,27 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'gis',             # Make sure this is the correct database name you have set up
-        'USER': 'myusername',
-        'PASSWORD': 'mypassword',
-        'HOST': 'localhost',    # Using the network alias
-        'PORT': '5432'
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.contrib.gis.db.backends.postgis',
 #         'NAME': 'gis',             # Make sure this is the correct database name you have set up
-#         'USER': 'docker',
-#         'PASSWORD': 'docker',
-#         'HOST': 'wmap_postgis',    # localhost  my-fyp wmap_postgis
-#         'PORT': '5432',
+#         'USER': 'myusername',
+#         'PASSWORD': 'mypassword',
+#         'HOST': 'localhost',    # Using the network alias
+#         'PORT': '5432'
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'gis',             # Make sure this is the correct database name you have set up
+        'USER': 'docker',
+        'PASSWORD': 'docker',
+        'HOST': 'wmap_postgis',    # localhost  my-fyp wmap_postgis
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
