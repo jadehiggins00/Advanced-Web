@@ -7,9 +7,11 @@ class BirdHides(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     location = models.PointField(null=True) # Spatial Field Types
+
  
     def __str__(self) -> str:
         return self.name
+
 
 class PineMartens(models.Model):
     OBJECTID = models.BigAutoField(primary_key=True)

@@ -24,7 +24,9 @@ from assignment1.views import signup, pine_martens_view, bird_hide_view
 
 
 urlpatterns = [
+    # path('', redirect_to_login, name='redirect-to-login'),
     path('admin/', admin.site.urls),
+
     path('assignment1/', include('django.contrib.auth.urls')),
     path('assignment1/pine-martens/', pine_martens_view, name='pine-martens'),
     path('assignment1/bird-watch/', bird_hide_view, name='bird-watch'),
@@ -32,6 +34,8 @@ urlpatterns = [
     path('', include('assignment1.urls')),
     path('', include('pwa.urls')),
     path("api/v1/", include('assignment1.urls')),
+    path("api/v1/", include('assignment1.urls')),
+
 
     # ... other URL patterns
 ]
